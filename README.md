@@ -1,1 +1,1 @@
-# xf-platform
+# xf-core
