@@ -4,4 +4,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="abstractions\DataProviderDescriptor.cs" />
+    <Compile Remove="abstractions\DataProvider`1.cs" />
+  </ItemGroup>
+
 </Project>

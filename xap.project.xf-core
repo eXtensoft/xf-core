@@ -1,0 +1,198 @@
+{
+	"project":
+	{
+		"name": "eXtensible Framework Core",
+		"moniker": "xfcore",
+		"contributors":[
+			{
+				"groupName": "architect",
+				"display": "robertknelson@gmail.com",
+				"description":""
+			},
+			{
+				"groupName": "developer",
+				"display": "agrafov@yahoo.com",
+				"description":""
+			},
+			{
+				"groupName": "dbrigham@aol.com",
+				"display": "",
+				"description":""
+			},
+			{
+				"groupName": "",
+				"display": "",
+				"description":""
+			}
+		],
+		"valueProposition": "this framework will provide a unified programming model in dotnetcore and aspnetcore for the purpose of...",
+		"requirements":[{
+			"functional":[
+				{
+					"groupName": "",
+					"display": "",
+					"description":""
+				},
+				{
+					"groupName": "",
+					"display": "",
+					"description":""
+				},
+				{
+					"groupName": "",
+					"display": "",
+					"description":""
+				}
+			]},
+			{"nonFunctional":[
+				{
+					"groupName": "",
+					"display": "",
+					"description":""
+				},
+				{
+					"groupName": "",
+					"display": "",
+					"description":""
+				},
+				{
+					"groupName": "",
+					"display": "",
+					"description":""
+				}
+			]},
+			{"security":[
+				{
+					"groupName": "",
+					"display": "",
+					"description":""
+				},
+				{
+					"groupName": "",
+					"display": "",
+					"description":""
+				},
+				{
+					"groupName": "",
+					"display": "",
+					"description":""
+				}
+			]},
+			{"businessCase":[
+				{
+					"groupName": "",
+					"display": "",
+					"description":"",
+					"userStory": {
+						"id": "",
+						"persona": "",
+						"intent": "",
+						"purpose": "",
+						"useCases":[
+							{
+								"id": "",
+								"groupName": "",
+								"display": "",
+								"description": ""
+							},
+							{
+								"id": "",
+								"groupName": "",
+								"display": "",
+								"description": ""
+							}
+						]
+					}
+				},
+				{
+					"groupName": "",
+					"display": "",
+					"description":"",
+					"userStory": {
+						"id": "",
+						"persona": "",
+						"intent": "",
+						"purpose": "",
+						"useCases":[
+							{
+								"id": "",
+								"groupName": "",
+								"display": "",
+								"description": ""
+							},
+							{
+								"id": "",
+								"groupName": "",
+								"display": "",
+								"description": ""
+							}
+						]
+					}
+				}
+			]}		
+		],
+		"riskManagement": {
+			"knownRisks":[
+				{
+					"groupName": "",
+					"display": "",
+					"description":""
+				},
+				{
+					"groupName": "",
+					"display": "",
+					"description":""
+				},
+				{
+					"groupName": "",
+					"display": "",
+					"description":""
+				},
+			],
+			"riskAbatement":[
+				{
+					"groupName": "",
+					"display": "",
+					"description":""
+				},
+				{
+					"groupName": "",
+					"display": "",
+					"description":""
+				},
+				{
+					"groupName": "",
+					"display": "",
+					"description":""
+				},
+			]
+		
+		},
+		"scope": [
+			{
+				"groupName": "",
+				"display": "",
+				"description":""
+			},
+			{
+				"groupName": "",
+				"display": "",
+				"description":""
+			},
+		],
+		"architecture":[
+			{
+				"groupName": "",
+				"display": "",
+				"description":""
+			},
+			{
+				"groupName": "",
+				"display": "",
+				"description":""
+			}		
+		],
+	
+	}
+}
+

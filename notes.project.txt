@@ -1,0 +1,48 @@
+
+plugin ModelRequestService
+
+plugin DataRequestService
+
+
+XF-2.0
+IModelRequestService
+	IResponse<T> Post<T>(T model) where T : class, new()
+IModelService
+	T Post<T>(T model) where T : class, new()
+
+IDataRequestService
+	IResponse<T> Post<T>(IRequest<T> request) where T : class, new();
+IDataService
+	T Post<T>(T model, IRequestContext requestContext) where T : class, new()
+
+
+Multitargets
+
+IRequestHandler
+	IResponse<T> Post(T model) where T : class, new()
+
+IRequestHandler<T> where T : class, new()
+	IResponse<T> Post(T model)
+
+
+XF.Core
+	intent: as fast and light as possible for server apps
+		as abstract as necessary with context for future mobile/windows clients
+	principles
+		must take advantage of dotnetcore logging, configuration, dependency injection etc
+	
+	server-side
+		var response = dataProvider.Post<T>(T t)
+			aspnetcore controller ctor
+				~Controller(IDataProvider provider)
+					// the specific MDG/DataProvider is passed to the controller
+		dataProviders should be created by a regime that allows for alternate frameworks
+			much as the dotnetcore di allows for inclusion of other di frameworks
+		dataPoviders should be transient by default, but overrideable to scoped and singleton
+
+	windows-client-side
+		var response = modelService.Post<T>(T t)
+			// inside the model-service, context info is collected and sent along
+			// to a server-side api {formerly wcf standard contract service}
+			// where the message (IRequest<T>) is unpackaged, and the appropriate
+			// data-provider/mdg is resolved, executed, and the IResponse<T> is returned

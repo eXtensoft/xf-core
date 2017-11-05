@@ -5,15 +5,29 @@ VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Core.Abstractions", "src\eXtensoft.XF.Core.Abstractions\eXtensoft.XF.Core.Abstractions.csproj", "{CF09EA5A-A1C4-4641-AECD-89E0D43B4BB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eXtensoft.XF.Data.Abstractions", "src\eXtensoft.XF.Data.Abstractions\eXtensoft.XF.Data.Abstractions.csproj", "{6F47994F-3BD7-4B4E-BF5C-45839D9136FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Data.Abstractions", "src\eXtensoft.XF.Data.Abstractions\eXtensoft.XF.Data.Abstractions.csproj", "{6F47994F-3BD7-4B4E-BF5C-45839D9136FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eXtensoft.XF.Core.Abstractions.Test", "test\eXtensoft.XF.Core.Abstractions.Test\eXtensoft.XF.Core.Abstractions.Test.csproj", "{89A6D9F7-2EA3-4B67-9791-340E37F5524D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Core.Abstractions.Test", "test\eXtensoft.XF.Core.Abstractions.Test\eXtensoft.XF.Core.Abstractions.Test.csproj", "{89A6D9F7-2EA3-4B67-9791-340E37F5524D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eXtensoft.XF.Data.Abstractions.Test", "test\eXtensoft.XF.Data.Abstractions.Test\eXtensoft.XF.Data.Abstractions.Test.csproj", "{8237DAB5-BFA6-4483-8F2D-71729D856064}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Data.Abstractions.Test", "test\eXtensoft.XF.Data.Abstractions.Test\eXtensoft.XF.Data.Abstractions.Test.csproj", "{8237DAB5-BFA6-4483-8F2D-71729D856064}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5262C798-6852-46E1-B837-57D13812DC84}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7852C702-B264-4E3D-97B0-A2DE94B9BB04}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "project.notes", "project.notes", "{DF7B5C0A-1CBB-48DC-A5BB-AC735F98A8BD}"
+	ProjectSection(SolutionItems) = preProject
+		notes.project.txt = notes.project.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xap", "xap", "{60E22615-BBEA-42B1-A99E-4462F5C6746D}"
+	ProjectSection(SolutionItems) = preProject
+		xap.project.xf-core = xap.project.xf-core
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eXtensoft.XF.Data.SqlServer", "src\eXtensoft.XF.Data.SqlServer\eXtensoft.XF.Data.SqlServer.csproj", "{A5B3B206-3AB9-4ED8-8044-EF8C843895B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eXtensoft.XF.Data.SqlServer.Test", "test\eXtensoft.XF.Data.SqlServer.Test\eXtensoft.XF.Data.SqlServer.Test.csproj", "{475ACCF1-795F-4D0D-9DA7-1E7D72D908B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +51,14 @@ Global
 		{8237DAB5-BFA6-4483-8F2D-71729D856064}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8237DAB5-BFA6-4483-8F2D-71729D856064}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8237DAB5-BFA6-4483-8F2D-71729D856064}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5B3B206-3AB9-4ED8-8044-EF8C843895B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5B3B206-3AB9-4ED8-8044-EF8C843895B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5B3B206-3AB9-4ED8-8044-EF8C843895B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5B3B206-3AB9-4ED8-8044-EF8C843895B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{475ACCF1-795F-4D0D-9DA7-1E7D72D908B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{475ACCF1-795F-4D0D-9DA7-1E7D72D908B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{475ACCF1-795F-4D0D-9DA7-1E7D72D908B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{475ACCF1-795F-4D0D-9DA7-1E7D72D908B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +68,9 @@ Global
 		{6F47994F-3BD7-4B4E-BF5C-45839D9136FE} = {5262C798-6852-46E1-B837-57D13812DC84}
 		{89A6D9F7-2EA3-4B67-9791-340E37F5524D} = {7852C702-B264-4E3D-97B0-A2DE94B9BB04}
 		{8237DAB5-BFA6-4483-8F2D-71729D856064} = {7852C702-B264-4E3D-97B0-A2DE94B9BB04}
+		{60E22615-BBEA-42B1-A99E-4462F5C6746D} = {DF7B5C0A-1CBB-48DC-A5BB-AC735F98A8BD}
+		{A5B3B206-3AB9-4ED8-8044-EF8C843895B1} = {5262C798-6852-46E1-B837-57D13812DC84}
+		{475ACCF1-795F-4D0D-9DA7-1E7D72D908B1} = {7852C702-B264-4E3D-97B0-A2DE94B9BB04}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4233EE32-8B93-441F-8823-B2C536E6F188}
