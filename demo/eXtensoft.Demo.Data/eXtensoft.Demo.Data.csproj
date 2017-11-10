@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\eXtensoft.XF.Core.Abstractions\eXtensoft.XF.Core.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\eXtensoft.XF.Data.Abstractions\eXtensoft.XF.Data.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\eXtensoft.XF.Data.SqlServer\eXtensoft.XF.Data.SqlServer.csproj" />
+    <ProjectReference Include="..\eXtensoft.Demo.Model\eXtensoft.Demo.Model.csproj" />
+  </ItemGroup>
+
+</Project>

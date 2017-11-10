@@ -2,6 +2,7 @@
 using eXtensoft.XF.Data.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -93,9 +94,37 @@ namespace eXtensoft.XF.Data.SqlServer
         }
 
 
+        protected virtual void InitializeDeleteCommand(SqlCommand cmd, IParameters parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected virtual void InitializeGetCommand(SqlCommand cmd, IParameters parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected virtual void InitializePostCommand(SqlCommand cmd, T model)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected virtual void InitializePutCommand(SqlCommand cmd, T model, IParameters p)
+        {
+            throw new NotImplementedException();
+        }
 
 
 
+
+
+
+
+
+        protected virtual void Borrow(SqlDataReader reader, List<T> list)
+        {
+
+        }
 
 
 

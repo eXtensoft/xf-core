@@ -25,9 +25,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xap", "xap", "{60E22615-BBE
 		xap.project.xf-core = xap.project.xf-core
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eXtensoft.XF.Data.SqlServer", "src\eXtensoft.XF.Data.SqlServer\eXtensoft.XF.Data.SqlServer.csproj", "{A5B3B206-3AB9-4ED8-8044-EF8C843895B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Data.SqlServer", "src\eXtensoft.XF.Data.SqlServer\eXtensoft.XF.Data.SqlServer.csproj", "{A5B3B206-3AB9-4ED8-8044-EF8C843895B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eXtensoft.XF.Data.SqlServer.Test", "test\eXtensoft.XF.Data.SqlServer.Test\eXtensoft.XF.Data.SqlServer.Test.csproj", "{475ACCF1-795F-4D0D-9DA7-1E7D72D908B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Data.SqlServer.Test", "test\eXtensoft.XF.Data.SqlServer.Test\eXtensoft.XF.Data.SqlServer.Test.csproj", "{475ACCF1-795F-4D0D-9DA7-1E7D72D908B1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "harness", "harness", "{02FFD6ED-7552-4504-A7C4-AA0F419B3008}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eXtensoft.Demo.Model", "demo\eXtensoft.Demo.Model\eXtensoft.Demo.Model.csproj", "{4A793A45-AA00-49C3-9E0F-22FC3BAE0CD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eXtensoft.Demo.Data", "demo\eXtensoft.Demo.Data\eXtensoft.Demo.Data.csproj", "{2B8D1C07-B66E-422B-8E19-78B10BDCFDDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eXtensoft.Demo.Consolas", "demo\eXtensoft.Demo.Consolas\eXtensoft.Demo.Consolas.csproj", "{C52CC4A3-740B-49B7-AA30-F3F74FA4AF03}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +67,18 @@ Global
 		{475ACCF1-795F-4D0D-9DA7-1E7D72D908B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{475ACCF1-795F-4D0D-9DA7-1E7D72D908B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{475ACCF1-795F-4D0D-9DA7-1E7D72D908B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A793A45-AA00-49C3-9E0F-22FC3BAE0CD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A793A45-AA00-49C3-9E0F-22FC3BAE0CD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A793A45-AA00-49C3-9E0F-22FC3BAE0CD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A793A45-AA00-49C3-9E0F-22FC3BAE0CD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B8D1C07-B66E-422B-8E19-78B10BDCFDDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B8D1C07-B66E-422B-8E19-78B10BDCFDDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B8D1C07-B66E-422B-8E19-78B10BDCFDDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B8D1C07-B66E-422B-8E19-78B10BDCFDDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C52CC4A3-740B-49B7-AA30-F3F74FA4AF03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C52CC4A3-740B-49B7-AA30-F3F74FA4AF03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C52CC4A3-740B-49B7-AA30-F3F74FA4AF03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C52CC4A3-740B-49B7-AA30-F3F74FA4AF03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +91,9 @@ Global
 		{60E22615-BBEA-42B1-A99E-4462F5C6746D} = {DF7B5C0A-1CBB-48DC-A5BB-AC735F98A8BD}
 		{A5B3B206-3AB9-4ED8-8044-EF8C843895B1} = {5262C798-6852-46E1-B837-57D13812DC84}
 		{475ACCF1-795F-4D0D-9DA7-1E7D72D908B1} = {7852C702-B264-4E3D-97B0-A2DE94B9BB04}
+		{4A793A45-AA00-49C3-9E0F-22FC3BAE0CD1} = {02FFD6ED-7552-4504-A7C4-AA0F419B3008}
+		{2B8D1C07-B66E-422B-8E19-78B10BDCFDDA} = {02FFD6ED-7552-4504-A7C4-AA0F419B3008}
+		{C52CC4A3-740B-49B7-AA30-F3F74FA4AF03} = {02FFD6ED-7552-4504-A7C4-AA0F419B3008}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4233EE32-8B93-441F-8823-B2C536E6F188}
