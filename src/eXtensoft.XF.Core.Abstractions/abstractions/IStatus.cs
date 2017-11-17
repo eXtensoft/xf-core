@@ -6,10 +6,15 @@ namespace eXtensoft.XF.Core.Abstractions
 {
     public interface IStatus
     {
-        int Code { get; }
+        int HttpCode { get; }
+
+        string ReturnCode { get; }
 
         string Message { get; }
 
+        string SystemMessage { get; }
+
+        int Affected { get; }
 
     }
 }

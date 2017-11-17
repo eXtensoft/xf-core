@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="MefDataProviderResolver.cs" />
+    <Compile Remove="DataProviderStatus.cs" />
+    <Compile Remove="ResponseExtensions.cs" />
   </ItemGroup>
 
   <ItemGroup>

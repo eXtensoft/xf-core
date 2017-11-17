@@ -13,15 +13,11 @@ namespace eXtensoft.XF.Core.Abstractions
 
         T Model { get; }
 
-        bool IsOkay { get; }
+        bool IsOkay { get; set; }
 
-        IStatus Status { get; }
+        IStatus Status { get; set; }
 
-        //void SetStatus(Exception ex, int status);
-
-        //void SetStatus(bool isOkay, int status);
-
-        //void SetStatus(bool isOkay, int status, int affectedCount);
+        IPage Page { get; set; }
 
     }
 }

@@ -1,19 +1,20 @@
 ﻿using eXtensoft.XF.Core.Abstractions;
 using eXtensoft.XF.Data.Abstractions;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Text;
-using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Data.Common;
 
-namespace eXtensoft.XF.Data.SqlServer
+namespace eXtensoft.XF.Data
 {
     //[InheritedExport(typeof(ITypeMap))]
-    public abstract class SqlServerDataProvider<T> : IDataProvider<T> where T : class, new()
+    public abstract class MySqlDataProvider<T> : IDataProvider<T> where T : class, new()
     {
-        private const string _ErrorMessage = "SqlServer Data Error";
+        private const string _ErrorMessage = "MySql Data Error";
 
         public IConnectionStringProvider ConnectionStringProvider { get; set; }
 
@@ -28,18 +29,15 @@ namespace eXtensoft.XF.Data.SqlServer
             return _ErrorMessage;
         }
 
-
-
-        public SqlServerDataProvider(
-            IConnectionStringProvider connectionStringProvider, 
-            IResponseFactory<T> responseFactory, 
+        public MySqlDataProvider(
+            IConnectionStringProvider connectionStringProvider,
+            IResponseFactory<T> responseFactory,
             ILogger logger)
         {
             ConnectionStringProvider = connectionStringProvider;
             ResponseFactory = responseFactory;
             Logger = logger;
         }
-
 
         IResponse<T> IDataProvider<T>.Delete(IParameters parameters)
         {
@@ -88,10 +86,10 @@ namespace eXtensoft.XF.Data.SqlServer
             var response = CreateResponse();
             try
             {
-                using (SqlConnection cn = GetConnection())
+                using (MySqlConnection cn = GetConnection())
                 {
                     cn.Open();
-                    using (SqlCommand cmd = cn.CreateCommand())
+                    using (MySqlCommand cmd = cn.CreateCommand())
                     {
                         InitializeDeleteCommand(cmd, parameters);
                         try
@@ -110,7 +108,7 @@ namespace eXtensoft.XF.Data.SqlServer
                         {
                             response.SetStatus(ex, 500);
                             LogError(ex, parameters);
-                        }
+                        }                        
                     }
                 }
             }
@@ -127,10 +125,10 @@ namespace eXtensoft.XF.Data.SqlServer
             var response = CreateResponse();
             try
             {
-                using (SqlConnection cn = GetConnection())
+                using (MySqlConnection cn = GetConnection())
                 {
                     await cn.OpenAsync().ConfigureAwait(false);
-                    using (SqlCommand cmd = cn.CreateCommand())
+                    using (MySqlCommand cmd = cn.CreateCommand())
                     {
                         InitializeGetCommand(cmd, parameters);
                         try
@@ -151,7 +149,7 @@ namespace eXtensoft.XF.Data.SqlServer
             catch (Exception ex)
             {
                 response.SetStatus(ex, 500);
-                LogError(ex, parameters);
+                LogError(ex,  parameters);
             }
             return response;
         }
@@ -161,15 +159,15 @@ namespace eXtensoft.XF.Data.SqlServer
             var response = CreateResponse();
             try
             {
-                using (SqlConnection cn = GetConnection())
+                using (MySqlConnection cn = GetConnection())
                 {
                     cn.Open();
-                    using (SqlCommand cmd = cn.CreateCommand())
+                    using (MySqlCommand cmd = cn.CreateCommand())
                     {
                         InitializeGetCommand(cmd, parameters);
                         try
                         {
-                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            using (MySqlDataReader reader = cmd.ExecuteReader())
                             {
                                 Borrow(reader, response.Items);
                             }
@@ -196,22 +194,22 @@ namespace eXtensoft.XF.Data.SqlServer
             var response = CreateResponse();
             try
             {
-                using (SqlConnection cn = GetConnection())
+                using (MySqlConnection cn = GetConnection())
                 {
                     await cn.OpenAsync().ConfigureAwait(false);
-                    using (SqlCommand cmd = cn.CreateCommand())
+                    using (MySqlCommand cmd = cn.CreateCommand())
                     {
                         InitializeGetCommand(cmd, parameters);
                         try
                         {
-                            SqlDataReader reader = await cmd.ExecuteReaderAsync(System.Data.CommandBehavior.Default);
+                            DbDataReader reader = await cmd.ExecuteReaderAsync(System.Data.CommandBehavior.Default);
                             Borrow(reader, response.Items);
                         }
                         catch (Exception ex)
                         {
                             response.SetStatus(ex, 500);
                             LogError(ex, parameters);
-                        }
+                        } 
                     }
                 }
                 response.TrySetPage<T>(parameters);
@@ -229,15 +227,15 @@ namespace eXtensoft.XF.Data.SqlServer
             var response = CreateResponse();
             try
             {
-                using (SqlConnection cn = GetConnection())
+                using (MySqlConnection cn = GetConnection())
                 {
                     cn.Open();
-                    using (SqlCommand cmd = cn.CreateCommand())
+                    using (MySqlCommand cmd = cn.CreateCommand())
                     {
                         InitializePostCommand(cmd, model);
                         try
                         {
-                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            using (MySqlDataReader reader = cmd.ExecuteReader())
                             {
                                 Borrow(reader, response.Items);
                             }
@@ -263,21 +261,21 @@ namespace eXtensoft.XF.Data.SqlServer
             var response = CreateResponse();
             try
             {
-                using (SqlConnection cn = GetConnection())
+                using (MySqlConnection cn = GetConnection())
                 {
                     await cn.OpenAsync().ConfigureAwait(false);
-                    using (SqlCommand cmd = cn.CreateCommand())
+                    using (MySqlCommand cmd = cn.CreateCommand())
                     {
                         InitializePostCommand(cmd, model);
                         try
                         {
-                            SqlDataReader reader = await cmd.ExecuteReaderAsync(System.Data.CommandBehavior.Default);
+                            DbDataReader reader = await cmd.ExecuteReaderAsync(System.Data.CommandBehavior.Default);
                             Borrow(reader, response.Items);
                         }
                         catch (Exception ex)
                         {
                             response.SetStatus(ex, 500);
-                            LogError(ex, model);
+                            LogError(ex,model);
                         }
                     }
                 }
@@ -285,7 +283,7 @@ namespace eXtensoft.XF.Data.SqlServer
             catch (Exception ex)
             {
                 response.SetStatus(ex, 500);
-                LogError(ex, model);
+                LogError(ex,model);
             }
             return response;
         }
@@ -295,15 +293,15 @@ namespace eXtensoft.XF.Data.SqlServer
             var response = CreateResponse();
             try
             {
-                using (SqlConnection cn = GetConnection())
+                using (MySqlConnection cn = GetConnection())
                 {
                     cn.Open();
-                    using (SqlCommand cmd = cn.CreateCommand())
+                    using (MySqlCommand cmd = cn.CreateCommand())
                     {
                         InitializePutCommand(cmd, model, parameters);
                         try
                         {
-                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            using (MySqlDataReader reader = cmd.ExecuteReader())
                             {
                                 Borrow(reader, response.Items);
                             }
@@ -329,21 +327,21 @@ namespace eXtensoft.XF.Data.SqlServer
             var response = CreateResponse();
             try
             {
-                using (SqlConnection cn = GetConnection())
+                using (MySqlConnection cn = GetConnection())
                 {
                     await cn.OpenAsync().ConfigureAwait(false);
-                    using (SqlCommand cmd = cn.CreateCommand())
+                    using (MySqlCommand cmd = cn.CreateCommand())
                     {
-                        InitializePutCommand(cmd, model, parameters);
+                        InitializePutCommand(cmd, model,parameters);
                         try
                         {
-                            SqlDataReader reader = await cmd.ExecuteReaderAsync(System.Data.CommandBehavior.Default);
+                            DbDataReader reader = await cmd.ExecuteReaderAsync(System.Data.CommandBehavior.Default);
                             Borrow(reader, response.Items);
                         }
                         catch (Exception ex)
                         {
                             response.SetStatus(ex, 500);
-                            LogError(ex, parameters, model);
+                            LogError(ex, parameters,model);
                         }
                     }
                 }
@@ -351,46 +349,45 @@ namespace eXtensoft.XF.Data.SqlServer
             catch (Exception ex)
             {
                 response.SetStatus(ex, 500);
-                LogError(ex, parameters, model);
+                LogError(ex,parameters,model);
             }
             return response;
         }
 
 
 
-        protected virtual void InitializeDeleteCommand(SqlCommand cmd, IParameters parameters)
+        protected virtual void InitializeDeleteCommand(MySqlCommand cmd, IParameters parameters)
         {
             throw new NotImplementedException(nameof(InitializeDeleteCommand));
         }
 
-        protected virtual void InitializeGetCommand(SqlCommand cmd, IParameters parameters)
+        protected virtual void InitializeGetCommand(MySqlCommand cmd, IParameters parameters)
         {
             throw new NotImplementedException(nameof(InitializeGetCommand));
         }
 
-        protected virtual void InitializePostCommand(SqlCommand cmd, T model)
+        protected virtual void InitializePostCommand(MySqlCommand cmd, T model)
         {
             throw new NotImplementedException(nameof(InitializePostCommand));
         }
 
-        protected virtual void InitializePutCommand(SqlCommand cmd, T model, IParameters parameters)
+        protected virtual void InitializePutCommand(MySqlCommand cmd, T model, IParameters parameters)
         {
             throw new NotImplementedException(nameof(InitializePutCommand));
         }
 
-        protected virtual void Borrow(SqlDataReader reader, List<T> list)
+        protected virtual void Borrow(DbDataReader reader, List<T> list)
         {
             throw new NotImplementedException(nameof(Borrow));
         }
 
-        protected virtual SqlConnection GetConnection()
+        protected virtual MySqlConnection GetConnection()
         {
-            SqlConnection connection = null;
+            MySqlConnection connection = null;
 
             if (ConnectionStringProvider == null)
             {
-                return new SqlConnection("Data Source=(local);Initial Catalog=demo;Integrated Security=True");
-                //throw new NullReferenceException(nameof(ConnectionStringProvider));
+                throw new NullReferenceException(nameof(ConnectionStringProvider));
             }
 
             string connectionString = ConnectionStringProvider.Get<T>();
@@ -399,7 +396,7 @@ namespace eXtensoft.XF.Data.SqlServer
                 throw new NullReferenceException(nameof(connectionString));
             }
 
-            connection = new SqlConnection(connectionString);
+            connection = new MySqlConnection(connectionString);
             if (connection == null)
             {
                 throw new NullReferenceException(nameof(connection));
@@ -421,7 +418,7 @@ namespace eXtensoft.XF.Data.SqlServer
                 return new DataResponse<T>();
 
             }
-
+            
         }
 
         private void LogError(Exception ex, IParameters parameters = null)
@@ -451,7 +448,7 @@ namespace eXtensoft.XF.Data.SqlServer
         }
         private void LogError(Exception ex, IParameters parameters = null, T model = null)
         {
-            if (parameters != null)
+            if(parameters != null)
             {
                 Logger.LogError(ex, ErrorMessage, parameters.ToList());
             }
@@ -463,7 +460,7 @@ namespace eXtensoft.XF.Data.SqlServer
             {
                 Logger.LogError(ex, ErrorMessage, ErrorMessage);
             }
-
+            
         }
 
     }
