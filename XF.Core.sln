@@ -27,8 +27,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xap", "xap", "{60E22615-BBE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Data.SqlServer.Test", "test\eXtensoft.XF.Data.SqlServer.Test\eXtensoft.XF.Data.SqlServer.Test.csproj", "{475ACCF1-795F-4D0D-9DA7-1E7D72D908B1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Data.SqlServer", "src\eXtensoft.XF.Data.SqlServer\eXtensoft.XF.Data.SqlServer.csproj", "{F6D2FDF1-84A8-4FB7-B7CC-C57A009CFD21}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Data.MySql", "src\eXtensoft.XF.Data.MySql\eXtensoft.XF.Data.MySql.csproj", "{ED521A38-FB4A-43AD-9B42-CD4CE9904C2E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Data.PostgreSQL", "src\eXtensoft.XF.Data.PostgreSQL\eXtensoft.XF.Data.PostgreSQL.csproj", "{FC616ADC-9904-49DB-B081-0B10CB61B673}"
@@ -51,9 +49,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.Demo.Consolas", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoWeb", "demo\DemoWeb\DemoWeb.csproj", "{D1D8F97E-0D04-4CE3-9987-1AD8ADE3734A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eXtensoft.Demo.Data.MySql", "demo\eXtensoft.Demo.Data.MySql\eXtensoft.Demo.Data.MySql.csproj", "{78E7B17E-62D6-47B1-8085-CEF6787617FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.Demo.Data.MySql", "demo\eXtensoft.Demo.Data.MySql\eXtensoft.Demo.Data.MySql.csproj", "{78E7B17E-62D6-47B1-8085-CEF6787617FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eXtensoft.Demo.Data.SqlServer", "demo\eXtensoft.Demo.Data.SqlServer\eXtensoft.Demo.Data.SqlServer.csproj", "{4D5BAFCE-06CE-4E55-90B4-B4C6C2FA64B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.Demo.Data.SqlServer", "demo\eXtensoft.Demo.Data.SqlServer\eXtensoft.Demo.Data.SqlServer.csproj", "{4D5BAFCE-06CE-4E55-90B4-B4C6C2FA64B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,10 +79,6 @@ Global
 		{475ACCF1-795F-4D0D-9DA7-1E7D72D908B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{475ACCF1-795F-4D0D-9DA7-1E7D72D908B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{475ACCF1-795F-4D0D-9DA7-1E7D72D908B1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F6D2FDF1-84A8-4FB7-B7CC-C57A009CFD21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F6D2FDF1-84A8-4FB7-B7CC-C57A009CFD21}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F6D2FDF1-84A8-4FB7-B7CC-C57A009CFD21}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F6D2FDF1-84A8-4FB7-B7CC-C57A009CFD21}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ED521A38-FB4A-43AD-9B42-CD4CE9904C2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ED521A38-FB4A-43AD-9B42-CD4CE9904C2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED521A38-FB4A-43AD-9B42-CD4CE9904C2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -140,7 +134,6 @@ Global
 		{8237DAB5-BFA6-4483-8F2D-71729D856064} = {7852C702-B264-4E3D-97B0-A2DE94B9BB04}
 		{60E22615-BBEA-42B1-A99E-4462F5C6746D} = {DF7B5C0A-1CBB-48DC-A5BB-AC735F98A8BD}
 		{475ACCF1-795F-4D0D-9DA7-1E7D72D908B1} = {7852C702-B264-4E3D-97B0-A2DE94B9BB04}
-		{F6D2FDF1-84A8-4FB7-B7CC-C57A009CFD21} = {894576DE-EF6D-4552-92B1-4995B9BB8A08}
 		{ED521A38-FB4A-43AD-9B42-CD4CE9904C2E} = {894576DE-EF6D-4552-92B1-4995B9BB8A08}
 		{FC616ADC-9904-49DB-B081-0B10CB61B673} = {894576DE-EF6D-4552-92B1-4995B9BB8A08}
 		{FB9CB1E6-F474-4DCB-833A-98FB5D1C5774} = {894576DE-EF6D-4552-92B1-4995B9BB8A08}
