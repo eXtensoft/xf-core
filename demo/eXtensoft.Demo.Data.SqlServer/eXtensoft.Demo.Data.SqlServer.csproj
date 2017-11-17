@@ -5,8 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\src\eXtensoft.XF.Core.Abstractions\eXtensoft.XF.Core.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\eXtensoft.XF.Data.Abstractions\eXtensoft.XF.Data.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\eXtensoft.XF.Data.SqlServer\eXtensoft.XF.Data.SqlServer.csproj" />
     <ProjectReference Include="..\eXtensoft.Demo.Model\eXtensoft.Demo.Model.csproj" />
   </ItemGroup>
 

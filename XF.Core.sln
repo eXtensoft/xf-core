@@ -53,6 +53,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.Demo.Data.MySql",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.Demo.Data.SqlServer", "demo\eXtensoft.Demo.Data.SqlServer\eXtensoft.Demo.Data.SqlServer.csproj", "{4D5BAFCE-06CE-4E55-90B4-B4C6C2FA64B9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Data.SqlServer", "src\eXtensoft.XF.Data.SqlServer\eXtensoft.XF.Data.SqlServer.csproj", "{DF0A89A5-37B7-4FE5-BB4D-1960282CF9BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -123,6 +125,10 @@ Global
 		{4D5BAFCE-06CE-4E55-90B4-B4C6C2FA64B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D5BAFCE-06CE-4E55-90B4-B4C6C2FA64B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D5BAFCE-06CE-4E55-90B4-B4C6C2FA64B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF0A89A5-37B7-4FE5-BB4D-1960282CF9BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF0A89A5-37B7-4FE5-BB4D-1960282CF9BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF0A89A5-37B7-4FE5-BB4D-1960282CF9BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF0A89A5-37B7-4FE5-BB4D-1960282CF9BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -146,6 +152,7 @@ Global
 		{D1D8F97E-0D04-4CE3-9987-1AD8ADE3734A} = {52C7F042-7B86-4B6D-996C-4FDC31D0880B}
 		{78E7B17E-62D6-47B1-8085-CEF6787617FC} = {52C7F042-7B86-4B6D-996C-4FDC31D0880B}
 		{4D5BAFCE-06CE-4E55-90B4-B4C6C2FA64B9} = {52C7F042-7B86-4B6D-996C-4FDC31D0880B}
+		{DF0A89A5-37B7-4FE5-BB4D-1960282CF9BE} = {894576DE-EF6D-4552-92B1-4995B9BB8A08}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4233EE32-8B93-441F-8823-B2C536E6F188}
