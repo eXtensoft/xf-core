@@ -6,5 +6,6 @@ namespace eXtensoft.XF.Data.Abstractions
 {
     public interface IDataProviderResolverFactory
     {
+        IDataProviderResolver GetResolver();
     }
 }
