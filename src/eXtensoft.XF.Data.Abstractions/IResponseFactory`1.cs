@@ -7,6 +7,6 @@ namespace eXtensoft.XF.Data.Abstractions
 {
     public interface IResponseFactory<T> where T : class, new()
     {
-        IResponse<T> Create();
+        DataResponse<T> Create();
     }
 }

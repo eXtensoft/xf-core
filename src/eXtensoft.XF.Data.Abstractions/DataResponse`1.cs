@@ -20,19 +20,38 @@ namespace eXtensoft.XF.Data.Abstractions
             get { return _Items.Count > 0 ? _Items[0] : default(T); }
         }
 
-        private bool _IsOkay;
-        bool IResponse<T>.IsOkay { get { return _IsOkay; } }
+        private bool _IsOkay = false;
+        bool IResponse<T>.IsOkay { get { return _IsOkay; } set { _IsOkay = value; } }
 
-        private IStatus _Status;
-        IStatus IResponse<T>.Status { get { return _Status; } }
+        private IStatus _Status = null;
+        IStatus IResponse<T>.Status { get { return _Status; } set { _Status = value; } }
 
         int IResponse<T>.Count { get { return Items.Count; } }
 
-        private int _Elapsed;
+        private int _Elapsed = 0;
         long IResponse<T>.Elapsed { get { return _Elapsed; } }
         T IResponse<T>.Model
         {
             get { return _Items.Count > 0 ? _Items[0] : default(T); }
+        }
+
+        private IPage _Page = null;
+        public IPage Page
+        {
+            get
+            {
+                if (_Page == null)
+                {
+                    int total = Items.Count;
+                    _Page = new DataPage(total);
+                }
+                else if (_Page.Total == 0)
+                {
+                    _Page.Total = _Items.Count;
+                }
+                return _Page;
+            }
+            set { _Page = value; }
         }
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator()

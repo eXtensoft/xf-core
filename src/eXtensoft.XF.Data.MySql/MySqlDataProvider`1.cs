@@ -6,18 +6,38 @@ using MySql.Data.MySqlClient;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Data.Common;
 
 namespace eXtensoft.XF.Data
 {
     //[InheritedExport(typeof(ITypeMap))]
     public abstract class MySqlDataProvider<T> : IDataProvider<T> where T : class, new()
     {
+        private const string _ErrorMessage = "MySql Data Error";
 
         public IConnectionStringProvider ConnectionStringProvider { get; set; }
 
         public ILogger Logger { get; set; }
 
         public IResponseFactory<T> ResponseFactory { get; set; }
+
+        protected string ErrorMessage { get { return GetGeneralErorMessage(); } }
+
+        protected virtual string GetGeneralErorMessage()
+        {
+            return _ErrorMessage;
+        }
+
+        public MySqlDataProvider(
+            IConnectionStringProvider connectionStringProvider,
+            IResponseFactory<T> responseFactory,
+            ILogger logger)
+        {
+            ConnectionStringProvider = connectionStringProvider;
+            ResponseFactory = responseFactory;
+            Logger = logger;
+        }
 
         IResponse<T> IDataProvider<T>.Delete(IParameters parameters)
         {
@@ -63,57 +83,275 @@ namespace eXtensoft.XF.Data
 
         protected virtual IResponse<T> Delete(IParameters parameters)
         {
-            IResponse<T> response = CreateResponse();
-            using (MySqlConnection cn = GetConnection())
+            var response = CreateResponse();
+            try
             {
-                cn.Open();
-                using (MySqlCommand cmd = cn.CreateCommand())
+                using (MySqlConnection cn = GetConnection())
                 {
-
-                    InitializeDeleteCommand(cmd, parameters);
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    cn.Open();
+                    using (MySqlCommand cmd = cn.CreateCommand())
                     {
-                        //Borrow(reader,response.)
+                        InitializeDeleteCommand(cmd, parameters);
+                        try
+                        {
+                            int i = cmd.ExecuteNonQuery();
+                            if (i == 0)
+                            {
+                                response.SetStatus(i, false);
+                            }
+                            else
+                            {
+                                response.SetStatus(i, true);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            response.SetStatus(ex, 500);
+                            LogError(ex, parameters);
+                        }                        
                     }
                 }
             }
-
+            catch (Exception ex)
+            {
+                response.SetStatus(ex, 500);
+                LogError(ex, parameters);
+            }
             return response;
         }
 
-        protected virtual Task<IResponse<T>> DeleteAsync(IParameters parameters)
+        protected virtual async Task<IResponse<T>> DeleteAsync(IParameters parameters)
         {
-            throw new NotImplementedException(nameof(DeleteAsync));
+            var response = CreateResponse();
+            try
+            {
+                using (MySqlConnection cn = GetConnection())
+                {
+                    await cn.OpenAsync().ConfigureAwait(false);
+                    using (MySqlCommand cmd = cn.CreateCommand())
+                    {
+                        InitializeGetCommand(cmd, parameters);
+                        try
+                        {
+                            var o = await cmd.ExecuteNonQueryAsync();
+                            bool b = o > 0;
+                            response.SetStatus(o, b);
+                        }
+                        catch (Exception ex)
+                        {
+                            response.SetStatus(ex, 500);
+                            LogError(ex, parameters);
+                        }
+                    }
+                }
+                response.TrySetPage<T>(parameters);
+            }
+            catch (Exception ex)
+            {
+                response.SetStatus(ex, 500);
+                LogError(ex,  parameters);
+            }
+            return response;
         }
 
         protected virtual IResponse<T> Get(IParameters parameters)
         {
-            throw new NotImplementedException(nameof(Get));
+            var response = CreateResponse();
+            try
+            {
+                using (MySqlConnection cn = GetConnection())
+                {
+                    cn.Open();
+                    using (MySqlCommand cmd = cn.CreateCommand())
+                    {
+                        InitializeGetCommand(cmd, parameters);
+                        try
+                        {
+                            using (MySqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                Borrow(reader, response.Items);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            response.SetStatus(ex, 500);
+                            LogError(ex, parameters);
+                        }
+                    }
+                }
+                response.TrySetPage<T>(parameters);
+            }
+            catch (Exception ex)
+            {
+                response.SetStatus(ex, 500);
+                LogError(ex, parameters);
+            }
+            return response;
         }
 
-        protected virtual Task<IResponse<T>> GetAsync(IParameters parameters)
+        protected virtual async Task<IResponse<T>> GetAsync(IParameters parameters)
         {
-            throw new NotImplementedException(nameof(GetAsync));
+            var response = CreateResponse();
+            try
+            {
+                using (MySqlConnection cn = GetConnection())
+                {
+                    await cn.OpenAsync().ConfigureAwait(false);
+                    using (MySqlCommand cmd = cn.CreateCommand())
+                    {
+                        InitializeGetCommand(cmd, parameters);
+                        try
+                        {
+                            DbDataReader reader = await cmd.ExecuteReaderAsync(System.Data.CommandBehavior.Default);
+                            Borrow(reader, response.Items);
+                        }
+                        catch (Exception ex)
+                        {
+                            response.SetStatus(ex, 500);
+                            LogError(ex, parameters);
+                        } 
+                    }
+                }
+                response.TrySetPage<T>(parameters);
+            }
+            catch (Exception ex)
+            {
+                response.SetStatus(ex, 500);
+                LogError(ex, parameters);
+            }
+            return response;
         }
 
         protected virtual IResponse<T> Post(T model)
         {
-            throw new NotImplementedException(nameof(Post));
+            var response = CreateResponse();
+            try
+            {
+                using (MySqlConnection cn = GetConnection())
+                {
+                    cn.Open();
+                    using (MySqlCommand cmd = cn.CreateCommand())
+                    {
+                        InitializePostCommand(cmd, model);
+                        try
+                        {
+                            using (MySqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                Borrow(reader, response.Items);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            response.SetStatus(ex, 500);
+                            LogError(ex, model);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.SetStatus(ex, 500);
+                LogError(ex, model);
+            }
+            return response;
         }
 
-        protected virtual Task<IResponse<T>> PostAsync(T model)
+        protected virtual async Task<IResponse<T>> PostAsync(T model)
         {
-            throw new NotImplementedException(nameof(PostAsync));
+            var response = CreateResponse();
+            try
+            {
+                using (MySqlConnection cn = GetConnection())
+                {
+                    await cn.OpenAsync().ConfigureAwait(false);
+                    using (MySqlCommand cmd = cn.CreateCommand())
+                    {
+                        InitializePostCommand(cmd, model);
+                        try
+                        {
+                            DbDataReader reader = await cmd.ExecuteReaderAsync(System.Data.CommandBehavior.Default);
+                            Borrow(reader, response.Items);
+                        }
+                        catch (Exception ex)
+                        {
+                            response.SetStatus(ex, 500);
+                            LogError(ex,model);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.SetStatus(ex, 500);
+                LogError(ex,model);
+            }
+            return response;
         }
 
         protected virtual IResponse<T> Put(T model, IParameters parameters)
         {
-            throw new NotImplementedException(nameof(Put));
+            var response = CreateResponse();
+            try
+            {
+                using (MySqlConnection cn = GetConnection())
+                {
+                    cn.Open();
+                    using (MySqlCommand cmd = cn.CreateCommand())
+                    {
+                        InitializePutCommand(cmd, model, parameters);
+                        try
+                        {
+                            using (MySqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                Borrow(reader, response.Items);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            response.SetStatus(ex, 500);
+                            LogError(ex, parameters);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.SetStatus(ex, 500);
+                LogError(ex, parameters);
+            }
+            return response;
         }
 
-        protected virtual Task<IResponse<T>> PutAsync(T model, IParameters parameters)
+        protected virtual async Task<IResponse<T>> PutAsync(T model, IParameters parameters)
         {
-            throw new NotImplementedException(nameof(PutAsync));
+            var response = CreateResponse();
+            try
+            {
+                using (MySqlConnection cn = GetConnection())
+                {
+                    await cn.OpenAsync().ConfigureAwait(false);
+                    using (MySqlCommand cmd = cn.CreateCommand())
+                    {
+                        InitializePutCommand(cmd, model,parameters);
+                        try
+                        {
+                            DbDataReader reader = await cmd.ExecuteReaderAsync(System.Data.CommandBehavior.Default);
+                            Borrow(reader, response.Items);
+                        }
+                        catch (Exception ex)
+                        {
+                            response.SetStatus(ex, 500);
+                            LogError(ex, parameters,model);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.SetStatus(ex, 500);
+                LogError(ex,parameters,model);
+            }
+            return response;
         }
 
 
@@ -136,6 +374,11 @@ namespace eXtensoft.XF.Data
         protected virtual void InitializePutCommand(MySqlCommand cmd, T model, IParameters parameters)
         {
             throw new NotImplementedException(nameof(InitializePutCommand));
+        }
+
+        protected virtual void Borrow(DbDataReader reader, List<T> list)
+        {
+            throw new NotImplementedException(nameof(Borrow));
         }
 
         protected virtual MySqlConnection GetConnection()
@@ -164,7 +407,7 @@ namespace eXtensoft.XF.Data
 
 
 
-        protected virtual IResponse<T> CreateResponse()
+        protected virtual DataResponse<T> CreateResponse()
         {
             if (ResponseFactory != null)
             {
@@ -178,7 +421,47 @@ namespace eXtensoft.XF.Data
             
         }
 
+        private void LogError(Exception ex, IParameters parameters = null)
+        {
+            if (parameters != null)
+            {
+                Logger.LogError(ex, ErrorMessage, parameters.ToList());
+            }
+            else
+            {
+                Logger.LogError(ex, ErrorMessage, ErrorMessage);
+            }
 
+
+        }
+        private void LogError(Exception ex, T model = null)
+        {
+            if (model != null)
+            {
+                Logger.LogError(ex, ErrorMessage, model);
+            }
+            else
+            {
+                Logger.LogError(ex, ErrorMessage, ErrorMessage);
+            }
+
+        }
+        private void LogError(Exception ex, IParameters parameters = null, T model = null)
+        {
+            if(parameters != null)
+            {
+                Logger.LogError(ex, ErrorMessage, parameters.ToList());
+            }
+            else if (model != null)
+            {
+                Logger.LogError(ex, ErrorMessage, model);
+            }
+            else
+            {
+                Logger.LogError(ex, ErrorMessage, ErrorMessage);
+            }
+            
+        }
 
     }
 }

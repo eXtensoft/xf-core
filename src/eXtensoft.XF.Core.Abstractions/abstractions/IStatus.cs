@@ -14,5 +14,7 @@ namespace eXtensoft.XF.Core.Abstractions
 
         string SystemMessage { get; }
 
+        int Affected { get; }
+
     }
 }

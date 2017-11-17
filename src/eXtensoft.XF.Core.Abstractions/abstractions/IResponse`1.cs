@@ -13,9 +13,11 @@ namespace eXtensoft.XF.Core.Abstractions
 
         T Model { get; }
 
-        bool IsOkay { get; }
+        bool IsOkay { get; set; }
 
-        IStatus Status { get; }
+        IStatus Status { get; set; }
+
+        IPage Page { get; set; }
 
     }
 }

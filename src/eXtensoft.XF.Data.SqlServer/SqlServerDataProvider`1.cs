@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace eXtensoft.XF.Data.SqlServer
@@ -12,10 +13,33 @@ namespace eXtensoft.XF.Data.SqlServer
     //[InheritedExport(typeof(ITypeMap))]
     public abstract class SqlServerDataProvider<T> : IDataProvider<T> where T : class, new()
     {
+        private const string _ErrorMessage = "SqlServer Data Error";
 
         public IConnectionStringProvider ConnectionStringProvider { get; set; }
 
         public ILogger Logger { get; set; }
+
+        public IResponseFactory<T> ResponseFactory { get; set; }
+
+        protected string ErrorMessage { get { return GetGeneralErorMessage(); } }
+
+        protected virtual string GetGeneralErorMessage()
+        {
+            return _ErrorMessage;
+        }
+
+
+
+        public SqlServerDataProvider(
+            IConnectionStringProvider connectionStringProvider, 
+            IResponseFactory<T> responseFactory, 
+            ILogger logger)
+        {
+            ConnectionStringProvider = connectionStringProvider;
+            ResponseFactory = responseFactory;
+            Logger = logger;
+        }
+
 
         IResponse<T> IDataProvider<T>.Delete(IParameters parameters)
         {
@@ -61,42 +85,275 @@ namespace eXtensoft.XF.Data.SqlServer
 
         protected virtual IResponse<T> Delete(IParameters parameters)
         {
-            throw new NotImplementedException(nameof(Delete));
+            var response = CreateResponse();
+            try
+            {
+                using (SqlConnection cn = GetConnection())
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = cn.CreateCommand())
+                    {
+                        InitializeDeleteCommand(cmd, parameters);
+                        try
+                        {
+                            int i = cmd.ExecuteNonQuery();
+                            if (i == 0)
+                            {
+                                response.SetStatus(i, false);
+                            }
+                            else
+                            {
+                                response.SetStatus(i, true);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            response.SetStatus(ex, 500);
+                            LogError(ex, parameters);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.SetStatus(ex, 500);
+                LogError(ex, parameters);
+            }
+            return response;
         }
 
-        protected virtual Task<IResponse<T>> DeleteAsync(IParameters parameters)
+        protected virtual async Task<IResponse<T>> DeleteAsync(IParameters parameters)
         {
-            throw new NotImplementedException(nameof(DeleteAsync));
+            var response = CreateResponse();
+            try
+            {
+                using (SqlConnection cn = GetConnection())
+                {
+                    await cn.OpenAsync().ConfigureAwait(false);
+                    using (SqlCommand cmd = cn.CreateCommand())
+                    {
+                        InitializeGetCommand(cmd, parameters);
+                        try
+                        {
+                            var o = await cmd.ExecuteNonQueryAsync();
+                            bool b = o > 0;
+                            response.SetStatus(o, b);
+                        }
+                        catch (Exception ex)
+                        {
+                            response.SetStatus(ex, 500);
+                            LogError(ex, parameters);
+                        }
+                    }
+                }
+                response.TrySetPage<T>(parameters);
+            }
+            catch (Exception ex)
+            {
+                response.SetStatus(ex, 500);
+                LogError(ex, parameters);
+            }
+            return response;
         }
 
         protected virtual IResponse<T> Get(IParameters parameters)
         {
-            throw new NotImplementedException(nameof(Get));
+            var response = CreateResponse();
+            try
+            {
+                using (SqlConnection cn = GetConnection())
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = cn.CreateCommand())
+                    {
+                        InitializeGetCommand(cmd, parameters);
+                        try
+                        {
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                Borrow(reader, response.Items);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            response.SetStatus(ex, 500);
+                            LogError(ex, parameters);
+                        }
+                    }
+                }
+                response.TrySetPage<T>(parameters);
+            }
+            catch (Exception ex)
+            {
+                response.SetStatus(ex, 500);
+                LogError(ex, parameters);
+            }
+            return response;
         }
 
-        protected virtual Task<IResponse<T>> GetAsync(IParameters parameters)
+        protected virtual async Task<IResponse<T>> GetAsync(IParameters parameters)
         {
-            throw new NotImplementedException(nameof(GetAsync));
+            var response = CreateResponse();
+            try
+            {
+                using (SqlConnection cn = GetConnection())
+                {
+                    await cn.OpenAsync().ConfigureAwait(false);
+                    using (SqlCommand cmd = cn.CreateCommand())
+                    {
+                        InitializeGetCommand(cmd, parameters);
+                        try
+                        {
+                            SqlDataReader reader = await cmd.ExecuteReaderAsync(System.Data.CommandBehavior.Default);
+                            Borrow(reader, response.Items);
+                        }
+                        catch (Exception ex)
+                        {
+                            response.SetStatus(ex, 500);
+                            LogError(ex, parameters);
+                        }
+                    }
+                }
+                response.TrySetPage<T>(parameters);
+            }
+            catch (Exception ex)
+            {
+                response.SetStatus(ex, 500);
+                LogError(ex, parameters);
+            }
+            return response;
         }
 
         protected virtual IResponse<T> Post(T model)
         {
-            throw new NotImplementedException(nameof(Post));
+            var response = CreateResponse();
+            try
+            {
+                using (SqlConnection cn = GetConnection())
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = cn.CreateCommand())
+                    {
+                        InitializePostCommand(cmd, model);
+                        try
+                        {
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                Borrow(reader, response.Items);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            response.SetStatus(ex, 500);
+                            LogError(ex, model);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.SetStatus(ex, 500);
+                LogError(ex, model);
+            }
+            return response;
         }
 
-        protected virtual Task<IResponse<T>> PostAsync(T model)
+        protected virtual async Task<IResponse<T>> PostAsync(T model)
         {
-            throw new NotImplementedException(nameof(PostAsync));
+            var response = CreateResponse();
+            try
+            {
+                using (SqlConnection cn = GetConnection())
+                {
+                    await cn.OpenAsync().ConfigureAwait(false);
+                    using (SqlCommand cmd = cn.CreateCommand())
+                    {
+                        InitializePostCommand(cmd, model);
+                        try
+                        {
+                            SqlDataReader reader = await cmd.ExecuteReaderAsync(System.Data.CommandBehavior.Default);
+                            Borrow(reader, response.Items);
+                        }
+                        catch (Exception ex)
+                        {
+                            response.SetStatus(ex, 500);
+                            LogError(ex, model);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.SetStatus(ex, 500);
+                LogError(ex, model);
+            }
+            return response;
         }
 
         protected virtual IResponse<T> Put(T model, IParameters parameters)
         {
-            throw new NotImplementedException(nameof(Put));
+            var response = CreateResponse();
+            try
+            {
+                using (SqlConnection cn = GetConnection())
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = cn.CreateCommand())
+                    {
+                        InitializePutCommand(cmd, model, parameters);
+                        try
+                        {
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                Borrow(reader, response.Items);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            response.SetStatus(ex, 500);
+                            LogError(ex, parameters);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.SetStatus(ex, 500);
+                LogError(ex, parameters);
+            }
+            return response;
         }
 
-        protected virtual Task<IResponse<T>> PutAsync(T model, IParameters parameters)
+        protected virtual async Task<IResponse<T>> PutAsync(T model, IParameters parameters)
         {
-            throw new NotImplementedException(nameof(PutAsync));
+            var response = CreateResponse();
+            try
+            {
+                using (SqlConnection cn = GetConnection())
+                {
+                    await cn.OpenAsync().ConfigureAwait(false);
+                    using (SqlCommand cmd = cn.CreateCommand())
+                    {
+                        InitializePutCommand(cmd, model, parameters);
+                        try
+                        {
+                            SqlDataReader reader = await cmd.ExecuteReaderAsync(System.Data.CommandBehavior.Default);
+                            Borrow(reader, response.Items);
+                        }
+                        catch (Exception ex)
+                        {
+                            response.SetStatus(ex, 500);
+                            LogError(ex, parameters, model);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.SetStatus(ex, 500);
+                LogError(ex, parameters, model);
+            }
+            return response;
         }
 
 
@@ -111,7 +368,7 @@ namespace eXtensoft.XF.Data.SqlServer
             throw new NotImplementedException(nameof(InitializeGetCommand));
         }
 
-        protected virtual void InitializePostCommand(SqlCommand cmd,T model)
+        protected virtual void InitializePostCommand(SqlCommand cmd, T model)
         {
             throw new NotImplementedException(nameof(InitializePostCommand));
         }
@@ -121,13 +378,19 @@ namespace eXtensoft.XF.Data.SqlServer
             throw new NotImplementedException(nameof(InitializePutCommand));
         }
 
+        protected virtual void Borrow(SqlDataReader reader, List<T> list)
+        {
+            throw new NotImplementedException(nameof(Borrow));
+        }
+
         protected virtual SqlConnection GetConnection()
         {
             SqlConnection connection = null;
 
             if (ConnectionStringProvider == null)
             {
-                throw new NullReferenceException(nameof(ConnectionStringProvider));
+                return new SqlConnection("Data Source=(local);Initial Catalog=demo;Integrated Security=True");
+                //throw new NullReferenceException(nameof(ConnectionStringProvider));
             }
 
             string connectionString = ConnectionStringProvider.Get<T>();
@@ -146,6 +409,62 @@ namespace eXtensoft.XF.Data.SqlServer
         }
 
 
+
+        protected virtual DataResponse<T> CreateResponse()
+        {
+            if (ResponseFactory != null)
+            {
+                return ResponseFactory.Create();
+            }
+            else
+            {
+                return new DataResponse<T>();
+
+            }
+
+        }
+
+        private void LogError(Exception ex, IParameters parameters = null)
+        {
+            if (parameters != null)
+            {
+                Logger.LogError(ex, ErrorMessage, parameters.ToList());
+            }
+            else
+            {
+                Logger.LogError(ex, ErrorMessage, ErrorMessage);
+            }
+
+
+        }
+        private void LogError(Exception ex, T model = null)
+        {
+            if (model != null)
+            {
+                Logger.LogError(ex, ErrorMessage, model);
+            }
+            else
+            {
+                Logger.LogError(ex, ErrorMessage, ErrorMessage);
+            }
+
+        }
+        private void LogError(Exception ex, IParameters parameters = null, T model = null)
+        {
+            if (parameters != null)
+            {
+                Logger.LogError(ex, ErrorMessage, parameters.ToList());
+            }
+            else if (model != null)
+            {
+                Logger.LogError(ex, ErrorMessage, model);
+            }
+            else
+            {
+                Logger.LogError(ex, ErrorMessage, ErrorMessage);
+            }
+
+        }
 
     }
 }

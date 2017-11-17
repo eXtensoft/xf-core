@@ -5,7 +5,7 @@ using System.Text;
 
 namespace eXtensoft.XF.Data.Abstractions
 {
-    public class DataProviderStatus : IStatus
+    public class DataStatus : IStatus
     {
         public int HttpCode { get; set; }
         public string ReturnCode { get; set; }
@@ -18,6 +18,5 @@ namespace eXtensoft.XF.Data.Abstractions
         string IStatus.Message { get { return Message; } }
         string IStatus.SystemMessage { get { return SystemMessage; } }
         int IStatus.Affected { get { return Affected; } }
-
     }
 }
