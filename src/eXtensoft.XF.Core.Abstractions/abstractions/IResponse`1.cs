@@ -17,11 +17,5 @@ namespace eXtensoft.XF.Core.Abstractions
 
         IStatus Status { get; }
 
-        //void SetStatus(Exception ex, int status);
-
-        //void SetStatus(bool isOkay, int status);
-
-        //void SetStatus(bool isOkay, int status, int affectedCount);
-
     }
 }

@@ -1,21 +1,23 @@
 ﻿using eXtensoft.XF.Core.Abstractions;
 using eXtensoft.XF.Data.Abstractions;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
-namespace eXtensoft.XF.Data.SqlServer
+namespace eXtensoft.XF.Data
 {
     //[InheritedExport(typeof(ITypeMap))]
-    public abstract class SqlServerDataProvider<T> : IDataProvider<T> where T : class, new()
+    public abstract class MySqlDataProvider<T> : IDataProvider<T> where T : class, new()
     {
 
         public IConnectionStringProvider ConnectionStringProvider { get; set; }
 
         public ILogger Logger { get; set; }
+
+        public IResponseFactory<T> ResponseFactory { get; set; }
 
         IResponse<T> IDataProvider<T>.Delete(IParameters parameters)
         {
@@ -61,7 +63,22 @@ namespace eXtensoft.XF.Data.SqlServer
 
         protected virtual IResponse<T> Delete(IParameters parameters)
         {
-            throw new NotImplementedException(nameof(Delete));
+            IResponse<T> response = CreateResponse();
+            using (MySqlConnection cn = GetConnection())
+            {
+                cn.Open();
+                using (MySqlCommand cmd = cn.CreateCommand())
+                {
+
+                    InitializeDeleteCommand(cmd, parameters);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        //Borrow(reader,response.)
+                    }
+                }
+            }
+
+            return response;
         }
 
         protected virtual Task<IResponse<T>> DeleteAsync(IParameters parameters)
@@ -101,29 +118,29 @@ namespace eXtensoft.XF.Data.SqlServer
 
 
 
-        protected virtual void InitializeDeleteCommand(SqlCommand cmd, IParameters parameters)
+        protected virtual void InitializeDeleteCommand(MySqlCommand cmd, IParameters parameters)
         {
             throw new NotImplementedException(nameof(InitializeDeleteCommand));
         }
 
-        protected virtual void InitializeGetCommand(SqlCommand cmd, IParameters parameters)
+        protected virtual void InitializeGetCommand(MySqlCommand cmd, IParameters parameters)
         {
             throw new NotImplementedException(nameof(InitializeGetCommand));
         }
 
-        protected virtual void InitializePostCommand(SqlCommand cmd,T model)
+        protected virtual void InitializePostCommand(MySqlCommand cmd, T model)
         {
             throw new NotImplementedException(nameof(InitializePostCommand));
         }
 
-        protected virtual void InitializePutCommand(SqlCommand cmd, T model, IParameters parameters)
+        protected virtual void InitializePutCommand(MySqlCommand cmd, T model, IParameters parameters)
         {
             throw new NotImplementedException(nameof(InitializePutCommand));
         }
 
-        protected virtual SqlConnection GetConnection()
+        protected virtual MySqlConnection GetConnection()
         {
-            SqlConnection connection = null;
+            MySqlConnection connection = null;
 
             if (ConnectionStringProvider == null)
             {
@@ -136,13 +153,29 @@ namespace eXtensoft.XF.Data.SqlServer
                 throw new NullReferenceException(nameof(connectionString));
             }
 
-            connection = new SqlConnection(connectionString);
+            connection = new MySqlConnection(connectionString);
             if (connection == null)
             {
                 throw new NullReferenceException(nameof(connection));
             }
 
             return connection;
+        }
+
+
+
+        protected virtual IResponse<T> CreateResponse()
+        {
+            if (ResponseFactory != null)
+            {
+                return ResponseFactory.Create();
+            }
+            else
+            {
+                return new DataResponse<T>();
+
+            }
+            
         }
 
 

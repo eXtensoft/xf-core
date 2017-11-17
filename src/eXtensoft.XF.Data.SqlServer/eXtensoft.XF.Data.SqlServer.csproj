@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\eXtensoft.XF.Core.Abstractions\eXtensoft.XF.Core.Abstractions.csproj" />
     <ProjectReference Include="..\eXtensoft.XF.Data.Abstractions\eXtensoft.XF.Data.Abstractions.csproj" />
   </ItemGroup>
