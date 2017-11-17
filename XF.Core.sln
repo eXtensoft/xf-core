@@ -29,15 +29,27 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Data.SqlServer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Data.SqlServer", "src\eXtensoft.XF.Data.SqlServer\eXtensoft.XF.Data.SqlServer.csproj", "{F6D2FDF1-84A8-4FB7-B7CC-C57A009CFD21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eXtensoft.XF.Data.MySql", "src\eXtensoft.XF.Data.MySql\eXtensoft.XF.Data.MySql.csproj", "{ED521A38-FB4A-43AD-9B42-CD4CE9904C2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Data.MySql", "src\eXtensoft.XF.Data.MySql\eXtensoft.XF.Data.MySql.csproj", "{ED521A38-FB4A-43AD-9B42-CD4CE9904C2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eXtensoft.XF.Data.PostgreSQL", "src\eXtensoft.XF.Data.PostgreSQL\eXtensoft.XF.Data.PostgreSQL.csproj", "{FC616ADC-9904-49DB-B081-0B10CB61B673}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Data.PostgreSQL", "src\eXtensoft.XF.Data.PostgreSQL\eXtensoft.XF.Data.PostgreSQL.csproj", "{FC616ADC-9904-49DB-B081-0B10CB61B673}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eXtensoft.XF.Data.MariaDB", "src\eXtensoft.XF.Data.MariaDB\eXtensoft.XF.Data.MariaDB.csproj", "{FB9CB1E6-F474-4DCB-833A-98FB5D1C5774}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Data.MariaDB", "src\eXtensoft.XF.Data.MariaDB\eXtensoft.XF.Data.MariaDB.csproj", "{FB9CB1E6-F474-4DCB-833A-98FB5D1C5774}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eXtensoft.XF.Data.Neo4j", "src\eXtensoft.XF.Data.Neo4j\eXtensoft.XF.Data.Neo4j.csproj", "{990315CE-0C31-4158-8212-36C556AD6C00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Data.Neo4j", "src\eXtensoft.XF.Data.Neo4j\eXtensoft.XF.Data.Neo4j.csproj", "{990315CE-0C31-4158-8212-36C556AD6C00}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data.extensions", "data.extensions", "{894576DE-EF6D-4552-92B1-4995B9BB8A08}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "demo", "demo", "{52C7F042-7B86-4B6D-996C-4FDC31D0880B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.Demo.Model", "demo\eXtensoft.Demo.Model\eXtensoft.Demo.Model.csproj", "{DF15CED9-BF31-41FC-9698-F30A747F53BF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.Demo.Data.PostgreSQL", "demo\eXtensoft.Demo.Data.PostgreSQL\eXtensoft.Demo.Data.PostgreSQL.csproj", "{ABBE08BA-C467-4C16-BB97-72264AEADF87}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.Demo.Data", "demo\eXtensoft.Demo.Data\eXtensoft.Demo.Data.csproj", "{730519F9-4CE6-4666-9782-9FACF63FB6BB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.Demo.Consolas", "demo\eXtensoft.Demo.Consolas\eXtensoft.Demo.Consolas.csproj", "{382AEFAD-EBC2-4E19-A766-7DA4E611D2B2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoWeb", "demo\DemoWeb\DemoWeb.csproj", "{D1D8F97E-0D04-4CE3-9987-1AD8ADE3734A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,6 +97,26 @@ Global
 		{990315CE-0C31-4158-8212-36C556AD6C00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{990315CE-0C31-4158-8212-36C556AD6C00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{990315CE-0C31-4158-8212-36C556AD6C00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF15CED9-BF31-41FC-9698-F30A747F53BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF15CED9-BF31-41FC-9698-F30A747F53BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF15CED9-BF31-41FC-9698-F30A747F53BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF15CED9-BF31-41FC-9698-F30A747F53BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABBE08BA-C467-4C16-BB97-72264AEADF87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABBE08BA-C467-4C16-BB97-72264AEADF87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABBE08BA-C467-4C16-BB97-72264AEADF87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABBE08BA-C467-4C16-BB97-72264AEADF87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{730519F9-4CE6-4666-9782-9FACF63FB6BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{730519F9-4CE6-4666-9782-9FACF63FB6BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{730519F9-4CE6-4666-9782-9FACF63FB6BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{730519F9-4CE6-4666-9782-9FACF63FB6BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{382AEFAD-EBC2-4E19-A766-7DA4E611D2B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{382AEFAD-EBC2-4E19-A766-7DA4E611D2B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{382AEFAD-EBC2-4E19-A766-7DA4E611D2B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{382AEFAD-EBC2-4E19-A766-7DA4E611D2B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1D8F97E-0D04-4CE3-9987-1AD8ADE3734A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1D8F97E-0D04-4CE3-9987-1AD8ADE3734A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1D8F97E-0D04-4CE3-9987-1AD8ADE3734A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1D8F97E-0D04-4CE3-9987-1AD8ADE3734A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -102,6 +134,11 @@ Global
 		{FB9CB1E6-F474-4DCB-833A-98FB5D1C5774} = {894576DE-EF6D-4552-92B1-4995B9BB8A08}
 		{990315CE-0C31-4158-8212-36C556AD6C00} = {894576DE-EF6D-4552-92B1-4995B9BB8A08}
 		{894576DE-EF6D-4552-92B1-4995B9BB8A08} = {5262C798-6852-46E1-B837-57D13812DC84}
+		{DF15CED9-BF31-41FC-9698-F30A747F53BF} = {52C7F042-7B86-4B6D-996C-4FDC31D0880B}
+		{ABBE08BA-C467-4C16-BB97-72264AEADF87} = {52C7F042-7B86-4B6D-996C-4FDC31D0880B}
+		{730519F9-4CE6-4666-9782-9FACF63FB6BB} = {52C7F042-7B86-4B6D-996C-4FDC31D0880B}
+		{382AEFAD-EBC2-4E19-A766-7DA4E611D2B2} = {52C7F042-7B86-4B6D-996C-4FDC31D0880B}
+		{D1D8F97E-0D04-4CE3-9987-1AD8ADE3734A} = {52C7F042-7B86-4B6D-996C-4FDC31D0880B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4233EE32-8B93-441F-8823-B2C536E6F188}
