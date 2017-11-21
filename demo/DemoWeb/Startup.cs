@@ -25,6 +25,14 @@ namespace DemoWeb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IDataProvider<ContentItem>, ContentItemDataProvider>();
+
+            services.AddScoped<IConnectionStringProvider, ConnectionStringProvider>();
+
+            //services.AddScoped<IRequestHandler, RequestHandler>();
+            //services.AddScoped<IRequestHandlerLoader, MultiTargetsRequestHandlerLoader>();
+
+
+
             services.AddMvc();
         }
 
