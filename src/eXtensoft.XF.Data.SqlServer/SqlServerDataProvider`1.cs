@@ -21,6 +21,8 @@ namespace eXtensoft.XF.Data.SqlServer
 
         public IResponseFactory<T> ResponseFactory { get; set; }
 
+        public IResponseFactory DataResponseFactory { get; set; }
+
         protected string ErrorMessage { get { return GetGeneralErorMessage(); } }
 
         protected virtual string GetGeneralErorMessage()
