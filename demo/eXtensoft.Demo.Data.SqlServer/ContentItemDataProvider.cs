@@ -6,6 +6,8 @@ using System.Text;
 using System.Data.SqlClient;
 using eXtensoft.XF.Core.Abstractions;
 using System.Data;
+using eXtensoft.XF.Data.Abstractions;
+using Microsoft.Extensions.Logging;
 
 namespace eXtensoft.Demo.Data
 {
@@ -18,6 +20,13 @@ namespace eXtensoft.Demo.Data
         private const string tagsParamname = "@tags";
         private const string createAtParamname = "@at";
         private const string createdByParamname = "@by";
+
+        public ContentItemDataProvider(IConnectionStringProvider connectionStringProvider, IResponseFactory<ContentItem> responseFactory, ILogger logger) : base(connectionStringProvider, responseFactory, logger)
+        {
+            ConnectionStringProvider = connectionStringProvider;
+            ResponseFactory = responseFactory;
+            Logger = logger;
+        }
 
         //protected override void InitializeGetCommand(SqlCommand cmd, IParameters parameters)
         //{
