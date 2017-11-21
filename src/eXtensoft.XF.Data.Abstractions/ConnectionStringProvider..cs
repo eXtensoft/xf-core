@@ -2,23 +2,25 @@
 using System.Collections.Generic;
 using System.Text;
 using eXtensoft.XF.Core.Abstractions;
+using Microsoft.Extensions.Configuration;
 //using Microsoft.Extensions.Configuration;
 
 namespace eXtensoft.XF.Data.Abstractions
 {
     public class ConnectionStringProvider : IConnectionStringProvider
     {
-        //private IConfiguration _Configuration;
+        private IConfiguration _Configuration;
         private Func<string> _GetConnectionString = null;
         public ConnectionStringProvider(Func<string> getConnectionString)
         {
             _GetConnectionString = getConnectionString;
         }
 
-        //public ConnectionStringProvider(IConfiguration configuration)
-        //{
-        //    _Configuration = configuration;
-        //}
+        public ConnectionStringProvider(IConfiguration configuration)
+        {
+            _Configuration = configuration;
+        }
+
         public ConnectionStringProvider()
         {
 
