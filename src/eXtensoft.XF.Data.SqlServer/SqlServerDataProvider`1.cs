@@ -35,10 +35,12 @@ namespace eXtensoft.XF.Data.SqlServer
         public SqlServerDataProvider(
             IConnectionStringProvider connectionStringProvider, 
             IResponseFactory<T> responseFactory, 
+            IResponseFactory dataResponseFactory,
             ILogger logger)
         {
             ConnectionStringProvider = connectionStringProvider;
             ResponseFactory = responseFactory;
+            DataResponseFactory = dataResponseFactory;
             Logger = logger;
         }
 
