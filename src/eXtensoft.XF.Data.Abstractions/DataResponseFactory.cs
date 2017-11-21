@@ -8,4 +8,12 @@ namespace eXtensoft.XF.Data.Abstractions
     {
         DataResponse<T> IResponseFactory<T>.Create() => new DataResponse<T>();
     }
+
+    public class DataResponseFactory : IResponseFactory
+    {
+        DataResponse<T> IResponseFactory.Create<T>()
+        {
+            return new DataResponse<T>();
+        }
+    }
 }
