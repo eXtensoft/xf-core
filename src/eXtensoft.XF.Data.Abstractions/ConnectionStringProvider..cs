@@ -28,17 +28,17 @@ namespace eXtensoft.XF.Data.Abstractions
 
         string IConnectionStringProvider.Get()
         {
-            throw new NotImplementedException();
+            return _Configuration.GetConnectionString("storage");
         }
 
         string IConnectionStringProvider.Get<T>()
         {
-            throw new NotImplementedException();
+            return _Configuration.GetConnectionString("storage");
         }
 
         string IConnectionStringProvider.Get<T>(IParameters parameters)
         {
-            throw new NotImplementedException();
+            return _Configuration.GetConnectionString("storage");
         }
 
         string IConnectionStringProvider.Get<T>(T model)
@@ -48,7 +48,7 @@ namespace eXtensoft.XF.Data.Abstractions
                 string typeName = typeof(T).Name.ToLower();
                 string key = String.Format("{0}.storage", typeName);
                 //return _Configuration.GetConnectionString(key);
-                return "";
+                return _Configuration.GetConnectionString("storage"); ;
             }
             else
             {
@@ -58,7 +58,7 @@ namespace eXtensoft.XF.Data.Abstractions
 
         string IConnectionStringProvider.Get<T>(T model, IParameters parameters)
         {
-            throw new NotImplementedException();
+            return _Configuration.GetConnectionString("storage");
         }
     }
 }

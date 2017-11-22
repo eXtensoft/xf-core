@@ -32,12 +32,11 @@ namespace eXtensoft.XF.Data.SqlServer
 
         public SqlServerDataProvider(
             IConnectionStringProvider connectionStringProvider, 
-            IResponseFactory responseFactory, 
-            ILogger logger)
+            IResponseFactory responseFactory)
         {
             ConnectionStringProvider = connectionStringProvider;
             ResponseFactory = responseFactory;
-            Logger = logger;
+            //Logger = logger;
         }
 
 
@@ -414,7 +413,7 @@ namespace eXtensoft.XF.Data.SqlServer
         {
             if (ResponseFactory != null)
             {
-                return ResponseFactory.Create();
+                return ResponseFactory.Create<T>();
             }
             else
             {
