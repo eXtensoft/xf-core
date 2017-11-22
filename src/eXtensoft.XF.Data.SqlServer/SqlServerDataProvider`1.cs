@@ -158,6 +158,7 @@ namespace eXtensoft.XF.Data.SqlServer
         protected virtual IResponse<T> Get(IParameters parameters)
         {
             var response = CreateResponse();
+            response.SetStatus(true);
             try
             {
                 using (SqlConnection cn = GetConnection())
@@ -193,6 +194,7 @@ namespace eXtensoft.XF.Data.SqlServer
         protected virtual async Task<IResponse<T>> GetAsync(IParameters parameters)
         {
             var response = CreateResponse();
+            response.SetStatus(true);
             try
             {
                 using (SqlConnection cn = GetConnection())
@@ -226,6 +228,7 @@ namespace eXtensoft.XF.Data.SqlServer
         protected virtual IResponse<T> Post(T model)
         {
             var response = CreateResponse();
+            response.SetStatus(true);
             try
             {
                 using (SqlConnection cn = GetConnection())
@@ -260,6 +263,7 @@ namespace eXtensoft.XF.Data.SqlServer
         protected virtual async Task<IResponse<T>> PostAsync(T model)
         {
             var response = CreateResponse();
+            response.SetStatus(true);
             try
             {
                 using (SqlConnection cn = GetConnection())
@@ -292,6 +296,7 @@ namespace eXtensoft.XF.Data.SqlServer
         protected virtual IResponse<T> Put(T model, IParameters parameters)
         {
             var response = CreateResponse();
+            response.SetStatus(true);
             try
             {
                 using (SqlConnection cn = GetConnection())
@@ -304,7 +309,7 @@ namespace eXtensoft.XF.Data.SqlServer
                         {
                             using (SqlDataReader reader = cmd.ExecuteReader())
                             {
-                                Borrow(reader, response.Items);
+                                Borrow(reader, response.Items);                                
                             }
                         }
                         catch (Exception ex)
@@ -326,6 +331,7 @@ namespace eXtensoft.XF.Data.SqlServer
         protected virtual async Task<IResponse<T>> PutAsync(T model, IParameters parameters)
         {
             var response = CreateResponse();
+            response.SetStatus(true);
             try
             {
                 using (SqlConnection cn = GetConnection())
@@ -337,7 +343,7 @@ namespace eXtensoft.XF.Data.SqlServer
                         try
                         {
                             SqlDataReader reader = await cmd.ExecuteReaderAsync(System.Data.CommandBehavior.Default);
-                            Borrow(reader, response.Items);
+                            Borrow(reader, response.Items);                            
                         }
                         catch (Exception ex)
                         {
