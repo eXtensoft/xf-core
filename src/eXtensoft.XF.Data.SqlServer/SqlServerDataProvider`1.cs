@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace eXtensoft.XF.Data.SqlServer
 {
     //[InheritedExport(typeof(ITypeMap))]
-    public abstract class SqlServerDataProvider<T> : IDataProvider<T> where T : class, new()
+    public abstract class SqlServerDataProvider<T> : IDataService<T> where T : class, new()
     {
         private const string _ErrorMessage = "SqlServer Data Error";
 
@@ -39,43 +39,48 @@ namespace eXtensoft.XF.Data.SqlServer
             //Logger = logger;
         }
 
+        public SqlServerDataProvider()
+        {
 
-        IResponse<T> IDataProvider<T>.Delete(IParameters parameters)
+        }
+
+
+        IResponse<T> IDataService<T>.Delete(IParameters parameters)
         {
             return Delete(parameters);
         }
 
-        Task<IResponse<T>> IDataProvider<T>.DeleteAsync(IParameters parameters)
+        Task<IResponse<T>> IDataService<T>.DeleteAsync(IParameters parameters)
         {
             return DeleteAsync(parameters);
         }
 
-        IResponse<T> IDataProvider<T>.Get(IParameters parameters)
+        IResponse<T> IDataService<T>.Get(IParameters parameters)
         {
             return Get(parameters);
         }
 
-        Task<IResponse<T>> IDataProvider<T>.GetAsync(IParameters parameters)
+        Task<IResponse<T>> IDataService<T>.GetAsync(IParameters parameters)
         {
             return GetAsync(parameters);
         }
 
-        IResponse<T> IDataProvider<T>.Post(T model)
+        IResponse<T> IDataService<T>.Post(T model)
         {
             return Post(model);
         }
 
-        Task<IResponse<T>> IDataProvider<T>.PostAsync(T model)
+        Task<IResponse<T>> IDataService<T>.PostAsync(T model)
         {
             return PostAsync(model);
         }
 
-        IResponse<T> IDataProvider<T>.Put(T model, IParameters parameters)
+        IResponse<T> IDataService<T>.Put(T model, IParameters parameters)
         {
             return Put(model, parameters);
         }
 
-        Task<IResponse<T>> IDataProvider<T>.PutAsync(T model, IParameters parameters)
+        Task<IResponse<T>> IDataService<T>.PutAsync(T model, IParameters parameters)
         {
             return PutAsync(model, parameters);
         }
