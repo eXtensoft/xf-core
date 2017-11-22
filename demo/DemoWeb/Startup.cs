@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using eXtensoft.XF.Data.Abstractions;
 using eXtensoft.Demo.Model;
 using eXtensoft.Demo.Data;
+using eXtensoft.XF.Core.Abstractions;
 
 namespace DemoWeb
 {
@@ -24,10 +25,10 @@ namespace DemoWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IDataProvider<ContentItem>, ContentItemDataProvider>();
+            services.AddTransient<IDataService<ContentItem>, ContentItemDataProvider>();
 
             services.AddTransient<IConnectionStringProvider, ConnectionStringProvider>();
-            services.AddTransient<IResponseFactory, DataResponseFactory>();
+            //services.AddTransient<IResponseFactory, DataResponseFactory>();
 
             //services.AddScoped<IRequestHandler, RequestHandler>();
             //services.AddScoped<IRequestHandlerLoader, MultiTargetsRequestHandlerLoader>();

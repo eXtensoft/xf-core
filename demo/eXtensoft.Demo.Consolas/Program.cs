@@ -1,4 +1,5 @@
-﻿using eXtensoft.XF.Data.Abstractions;
+﻿using eXtensoft.XF.Core.Abstractions;
+using eXtensoft.XF.Data.Abstractions;
 using System;
 
 namespace eXtensoft.Demo.Consolas
@@ -10,7 +11,7 @@ namespace eXtensoft.Demo.Consolas
             Console.WriteLine("Hello World!");
         }
 
-        private static IDataProvider GetProvider()
+        private static IDataService GetService()
         {
             return null; 
         }

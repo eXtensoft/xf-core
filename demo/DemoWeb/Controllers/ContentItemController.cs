@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using eXtensoft.Demo.Data;
-using eXtensoft.XF.Data.Abstractions;
 using eXtensoft.Demo.Model;
+using eXtensoft.XF.Core.Abstractions;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,11 +13,11 @@ namespace DemoWeb.Controllers
     [Route("api/content")]
     public class ContentItemController : Controller
     {
-        private IDataProvider<ContentItem> _Provider;
+        private IDataService<ContentItem> _Provider;
 
 
 
-        public ContentItemController(IDataProvider<ContentItem> provider)
+        public ContentItemController(IDataService<ContentItem> provider)
         {
             _Provider = provider;
         }
