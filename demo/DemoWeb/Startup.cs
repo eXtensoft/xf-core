@@ -27,7 +27,8 @@ namespace DemoWeb
             services.AddSingleton<IDataProvider<ContentItem>, ContentItemDataProvider>();
 
             services.AddScoped<IConnectionStringProvider, ConnectionStringProvider>();
-            //services.AddTransient<IResponseFactory, DataResponseFactory>();
+            services.AddTransient<IResponseFactory, DataResponseFactory>();
+
             //services.AddScoped<IRequestHandler, RequestHandler>();
             //services.AddScoped<IRequestHandlerLoader, MultiTargetsRequestHandlerLoader>();
 

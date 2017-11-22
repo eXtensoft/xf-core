@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using eXtensoft.Demo.Data;
+using eXtensoft.XF.Data.Abstractions;
+using eXtensoft.Demo.Model;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,12 +14,31 @@ namespace DemoWeb.Controllers
     [Route("api/content")]
     public class ContentItemController : Controller
     {
-        private ContentItemDataProvider _Provider;
+        private IDataProvider<ContentItem> _Provider;
+
+
+
+        public ContentItemController(IDataProvider<ContentItem> provider)
+        {
+            _Provider = provider;
+        }
+
+
         // GET: api/values
         [HttpGet]
         public IActionResult Get()
         {
-            return Json("");
+
+            var response = _Provider.Get(null);
+            if (response.IsOkay)
+            {
+                return Json(response);
+            }
+            else
+            {
+                return NotFound();
+            }
+
         }
 
         // GET api/values/5

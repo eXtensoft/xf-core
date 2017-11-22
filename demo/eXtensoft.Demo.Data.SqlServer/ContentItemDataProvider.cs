@@ -21,7 +21,9 @@ namespace eXtensoft.Demo.Data
         private const string createAtParamname = "@at";
         private const string createdByParamname = "@by";
 
-        public ContentItemDataProvider(IConnectionStringProvider connectionStringProvider, IResponseFactory<ContentItem> responseFactory, ILogger logger) : base(connectionStringProvider, responseFactory, logger)
+        public ContentItemDataProvider(IConnectionStringProvider connectionStringProvider, 
+            IResponseFactory<ContentItem> responseFactory,IResponseFactory dataResponseFactory, ILogger logger) 
+            : base(connectionStringProvider, responseFactory, dataResponseFactory, logger)
         {
             ConnectionStringProvider = connectionStringProvider;
             ResponseFactory = responseFactory;
