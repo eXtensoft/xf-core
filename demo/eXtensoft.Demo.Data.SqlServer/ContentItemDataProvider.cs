@@ -22,11 +22,10 @@ namespace eXtensoft.Demo.Data
         private const string createdByParamname = "@by";
 
         public ContentItemDataProvider(IConnectionStringProvider connectionStringProvider, 
-            IResponseFactory responseFactory) 
+            IResponseFactory responseFactory)
+            :base(connectionStringProvider,responseFactory)
         {
-            ConnectionStringProvider = connectionStringProvider;
-            ResponseFactory = responseFactory;
-            //Logger = logger;
+
         }
 
         protected override void InitializeGetCommand(SqlCommand cmd, IParameters parameters)
