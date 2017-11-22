@@ -12,7 +12,7 @@ using System.Data.Common;
 namespace eXtensoft.XF.Data
 {
     //[InheritedExport(typeof(ITypeMap))]
-    public abstract class MySqlDataProvider<T> : IDataProvider<T> where T : class, new()
+    public abstract class MySqlDataProvider<T> : IDataService<T> where T : class, new()
     {
         private const string _ErrorMessage = "MySql Data Error";
 
@@ -20,7 +20,7 @@ namespace eXtensoft.XF.Data
 
         public ILogger Logger { get; set; }
 
-        public IResponseFactory<T> ResponseFactory { get; set; }
+        public IResponseFactory ResponseFactory { get; set; }
 
         protected string ErrorMessage { get { return GetGeneralErorMessage(); } }
 
@@ -31,7 +31,7 @@ namespace eXtensoft.XF.Data
 
         public MySqlDataProvider(
             IConnectionStringProvider connectionStringProvider,
-            IResponseFactory<T> responseFactory,
+            IResponseFactory responseFactory,
             ILogger logger)
         {
             ConnectionStringProvider = connectionStringProvider;
@@ -39,42 +39,47 @@ namespace eXtensoft.XF.Data
             Logger = logger;
         }
 
-        IResponse<T> IDataProvider<T>.Delete(IParameters parameters)
+        public MySqlDataProvider()
+        {
+
+        }
+
+        IResponse<T> IDataService<T>.Delete(IParameters parameters)
         {
             return Delete(parameters);
         }
 
-        Task<IResponse<T>> IDataProvider<T>.DeleteAsync(IParameters parameters)
+        Task<IResponse<T>> IDataService<T>.DeleteAsync(IParameters parameters)
         {
             return DeleteAsync(parameters);
         }
 
-        IResponse<T> IDataProvider<T>.Get(IParameters parameters)
+        IResponse<T> IDataService<T>.Get(IParameters parameters)
         {
             return Get(parameters);
         }
 
-        Task<IResponse<T>> IDataProvider<T>.GetAsync(IParameters parameters)
+        Task<IResponse<T>> IDataService<T>.GetAsync(IParameters parameters)
         {
             return GetAsync(parameters);
         }
 
-        IResponse<T> IDataProvider<T>.Post(T model)
+        IResponse<T> IDataService<T>.Post(T model)
         {
             return Post(model);
         }
 
-        Task<IResponse<T>> IDataProvider<T>.PostAsync(T model)
+        Task<IResponse<T>> IDataService<T>.PostAsync(T model)
         {
             return PostAsync(model);
         }
 
-        IResponse<T> IDataProvider<T>.Put(T model, IParameters parameters)
+        IResponse<T> IDataService<T>.Put(T model, IParameters parameters)
         {
             return Put(model, parameters);
         }
 
-        Task<IResponse<T>> IDataProvider<T>.PutAsync(T model, IParameters parameters)
+        Task<IResponse<T>> IDataService<T>.PutAsync(T model, IParameters parameters)
         {
             return PutAsync(model, parameters);
         }
@@ -411,7 +416,7 @@ namespace eXtensoft.XF.Data
         {
             if (ResponseFactory != null)
             {
-                return ResponseFactory.Create();
+                return ResponseFactory.Create<T>();
             }
             else
             {
