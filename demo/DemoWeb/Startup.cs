@@ -24,9 +24,9 @@ namespace DemoWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IDataProvider<ContentItem>, ContentItemDataProvider>();
+            services.AddTransient<IDataProvider<ContentItem>, ContentItemDataProvider>();
 
-            services.AddScoped<IConnectionStringProvider, ConnectionStringProvider>();
+            services.AddTransient<IConnectionStringProvider, ConnectionStringProvider>();
             services.AddTransient<IResponseFactory, DataResponseFactory>();
 
             //services.AddScoped<IRequestHandler, RequestHandler>();
