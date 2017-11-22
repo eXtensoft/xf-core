@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace eXtensoft.XF.Core.Abstractions
 {
-    public interface IModelService
+    public interface IDataService
     {
         IResponse<T> Get<T>(IParameters parameters) where T : class, new();
 
@@ -22,5 +22,6 @@ namespace eXtensoft.XF.Core.Abstractions
         Task<IResponse<T>> PostAsync<T>(T model) where T : class, new();
 
         Task<IResponse<T>> PutAsync<T>(T model, IParameters parameters) where T : class, new();
+
     }
 }
