@@ -19,9 +19,7 @@ namespace eXtensoft.XF.Data.SqlServer
 
         public ILogger Logger { get; set; }
 
-        public IResponseFactory<T> ResponseFactory { get; set; }
-
-        public IResponseFactory DataResponseFactory { get; set; }
+        public IResponseFactory ResponseFactory { get; set; }
 
         protected string ErrorMessage { get { return GetGeneralErorMessage(); } }
 
@@ -34,14 +32,11 @@ namespace eXtensoft.XF.Data.SqlServer
 
         public SqlServerDataProvider(
             IConnectionStringProvider connectionStringProvider, 
-            IResponseFactory<T> responseFactory, 
-            IResponseFactory dataResponseFactory,
-            ILogger logger)
+            IResponseFactory responseFactory)
         {
             ConnectionStringProvider = connectionStringProvider;
             ResponseFactory = responseFactory;
-            DataResponseFactory = dataResponseFactory;
-            Logger = logger;
+            //Logger = logger;
         }
 
 
@@ -418,7 +413,7 @@ namespace eXtensoft.XF.Data.SqlServer
         {
             if (ResponseFactory != null)
             {
-                return ResponseFactory.Create();
+                return ResponseFactory.Create<T>();
             }
             else
             {
