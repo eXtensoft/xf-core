@@ -7,27 +7,27 @@ namespace eXtensoft.XF.Data.Abstractions
 {
     public class MefDataProviderResolver : IDataProviderResolver
     {
-        IDataProvider<T> IDataProviderResolver.Resolve<T>()
+        IDataService<T> IDataProviderResolver.Resolve<T>()
         {
             return GetDataProvider<T>();
         }
 
-        IDataProvider<T> IDataProviderResolver.Resolve<T>(IParameters parameters)
+        IDataService<T> IDataProviderResolver.Resolve<T>(IParameters parameters)
         {
             return GetDataProvider<T>();
         }
 
-        IDataProvider<T> IDataProviderResolver.Resolve<T>(T model)
+        IDataService<T> IDataProviderResolver.Resolve<T>(T model)
         {
             return GetDataProvider<T>();
         }
 
-        IDataProvider<T> IDataProviderResolver.Resolve<T>(T model, IParameters parameters)
+        IDataService<T> IDataProviderResolver.Resolve<T>(T model, IParameters parameters)
         {
             return GetDataProvider<T>();
         }
 
-        private IDataProvider<T> GetDataProvider<T>() where T : class, new()
+        private IDataService<T> GetDataProvider<T>() where T : class, new()
         {
             return null;
             // http://gunnarpeipman.com/2017/01/aspnet-core-plugins/

@@ -7,13 +7,13 @@ namespace eXtensoft.XF.Data.Abstractions
 {
     public interface IDataProviderResolver
     {
-        IDataProvider<T> Resolve<T>() where T : class, new();
+        IDataService<T> Resolve<T>() where T : class, new();
 
-        IDataProvider<T> Resolve<T>(IParameters parameters) where T : class, new();
+        IDataService<T> Resolve<T>(IParameters parameters) where T : class, new();
 
-        IDataProvider<T> Resolve<T>(T model) where T : class, new();
+        IDataService<T> Resolve<T>(T model) where T : class, new();
 
-        IDataProvider<T> Resolve<T>(T model, IParameters parameters) where T : class, new();
+        IDataService<T> Resolve<T>(T model, IParameters parameters) where T : class, new();
 
     }
 }
