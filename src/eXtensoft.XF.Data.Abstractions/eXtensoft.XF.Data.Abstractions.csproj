@@ -18,4 +18,8 @@
     <ProjectReference Include="..\eXtensoft.XF.Core.Abstractions\eXtensoft.XF.Core.Abstractions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="data.service.resolution\" />
+  </ItemGroup>
+
 </Project>
