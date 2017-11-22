@@ -21,19 +21,27 @@ namespace eXtensoft.Demo.Data
         private const string createAtParamname = "@at";
         private const string createdByParamname = "@by";
 
-        public ContentItemDataProvider(IConnectionStringProvider connectionStringProvider, 
-            IResponseFactory responseFactory)
-            :base(connectionStringProvider,responseFactory)
-        {
+        //public ContentItemDataProvider(IConnectionStringProvider connectionStringProvider, 
+        //    IResponseFactory responseFactory)
+        //    :base(connectionStringProvider,responseFactory)
+        //{
 
+        //}
+        public ContentItemDataProvider(IConnectionStringProvider cnp, IResponseFactory irf, ILoggerFactory ilf) :base(cnp,irf)
+        {
+            Logger = ilf.CreateLogger<ContentItem>();
         }
 
         protected override void InitializeGetCommand(SqlCommand cmd, IParameters parameters)
         {
             cmd.CommandType = CommandType.Text;
-            if (parameters.HasStrategy())
+            if (parameters == null)
             {
-
+                cmd.CommandText = "select [id],[display],[text],[tags],[mime],[createdby],[createdat]" +
+                    " from [demo].[contentitem]";
+            }
+            else if(parameters.HasStrategy())
+            {
             }
             else
             {

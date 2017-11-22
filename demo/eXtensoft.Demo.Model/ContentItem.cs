@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace eXtensoft.Demo.Model
 {
+    [DataContract]
+    [Serializable]
     public class ContentItem
     {
+        [DataMember]
         public string Id { get; set; }
 
         public List<string> Tags { get; set; }
