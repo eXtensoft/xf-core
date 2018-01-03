@@ -7,6 +7,11 @@
   <ItemGroup>
     <Compile Remove="abstractions\DataProviderDescriptor.cs" />
     <Compile Remove="abstractions\DataProvider`1.cs" />
+    <Compile Remove="abstractions\IMessageContext.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="abstractions\api\" />
   </ItemGroup>
 
 </Project>

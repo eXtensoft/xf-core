@@ -4,7 +4,8 @@ using System.Text;
 
 namespace eXtensoft.XF.Core.Abstractions
 {
-    public interface IModelService<T>
+    public interface IProjection
     {
+        IEnumerable<string> Data { get; set; }
     }
 }
