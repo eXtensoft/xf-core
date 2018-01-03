@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.10
+VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Core.Abstractions", "src\eXtensoft.XF.Core.Abstractions\eXtensoft.XF.Core.Abstractions.csproj", "{CF09EA5A-A1C4-4641-AECD-89E0D43B4BB9}"
 EndProject
@@ -29,15 +29,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Data.SqlServer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Data.SqlServer", "src\eXtensoft.XF.Data.SqlServer\eXtensoft.XF.Data.SqlServer.csproj", "{F6D2FDF1-84A8-4FB7-B7CC-C57A009CFD21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eXtensoft.XF.Data.MySql", "src\eXtensoft.XF.Data.MySql\eXtensoft.XF.Data.MySql.csproj", "{ED521A38-FB4A-43AD-9B42-CD4CE9904C2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Data.MySql", "src\eXtensoft.XF.Data.MySql\eXtensoft.XF.Data.MySql.csproj", "{ED521A38-FB4A-43AD-9B42-CD4CE9904C2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eXtensoft.XF.Data.PostgreSQL", "src\eXtensoft.XF.Data.PostgreSQL\eXtensoft.XF.Data.PostgreSQL.csproj", "{FC616ADC-9904-49DB-B081-0B10CB61B673}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Data.PostgreSQL", "src\eXtensoft.XF.Data.PostgreSQL\eXtensoft.XF.Data.PostgreSQL.csproj", "{FC616ADC-9904-49DB-B081-0B10CB61B673}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eXtensoft.XF.Data.MariaDB", "src\eXtensoft.XF.Data.MariaDB\eXtensoft.XF.Data.MariaDB.csproj", "{FB9CB1E6-F474-4DCB-833A-98FB5D1C5774}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Data.MariaDB", "src\eXtensoft.XF.Data.MariaDB\eXtensoft.XF.Data.MariaDB.csproj", "{FB9CB1E6-F474-4DCB-833A-98FB5D1C5774}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eXtensoft.XF.Data.Neo4j", "src\eXtensoft.XF.Data.Neo4j\eXtensoft.XF.Data.Neo4j.csproj", "{990315CE-0C31-4158-8212-36C556AD6C00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Data.Neo4j", "src\eXtensoft.XF.Data.Neo4j\eXtensoft.XF.Data.Neo4j.csproj", "{990315CE-0C31-4158-8212-36C556AD6C00}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data.extensions", "data.extensions", "{894576DE-EF6D-4552-92B1-4995B9BB8A08}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Core", "src\eXtensoft.XF.Core\eXtensoft.XF.Core.csproj", "{5DB8729C-311A-41EB-A26D-854EE9CC1029}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eXtensoft.XF.Data.MongoDb", "eXtensoft.XF.Data.MongoDb\eXtensoft.XF.Data.MongoDb.csproj", "{10EDB708-CE80-40EF-AE53-E57DC151BE33}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lob", "lob", "{789ECFFE-FABA-40D9-B0DA-DD68E147533A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,6 +91,14 @@ Global
 		{990315CE-0C31-4158-8212-36C556AD6C00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{990315CE-0C31-4158-8212-36C556AD6C00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{990315CE-0C31-4158-8212-36C556AD6C00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DB8729C-311A-41EB-A26D-854EE9CC1029}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DB8729C-311A-41EB-A26D-854EE9CC1029}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DB8729C-311A-41EB-A26D-854EE9CC1029}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DB8729C-311A-41EB-A26D-854EE9CC1029}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10EDB708-CE80-40EF-AE53-E57DC151BE33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10EDB708-CE80-40EF-AE53-E57DC151BE33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10EDB708-CE80-40EF-AE53-E57DC151BE33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10EDB708-CE80-40EF-AE53-E57DC151BE33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -102,6 +116,8 @@ Global
 		{FB9CB1E6-F474-4DCB-833A-98FB5D1C5774} = {894576DE-EF6D-4552-92B1-4995B9BB8A08}
 		{990315CE-0C31-4158-8212-36C556AD6C00} = {894576DE-EF6D-4552-92B1-4995B9BB8A08}
 		{894576DE-EF6D-4552-92B1-4995B9BB8A08} = {5262C798-6852-46E1-B837-57D13812DC84}
+		{5DB8729C-311A-41EB-A26D-854EE9CC1029} = {5262C798-6852-46E1-B837-57D13812DC84}
+		{10EDB708-CE80-40EF-AE53-E57DC151BE33} = {894576DE-EF6D-4552-92B1-4995B9BB8A08}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4233EE32-8B93-441F-8823-B2C536E6F188}
