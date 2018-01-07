@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace eXtensoft.XF.Data.Abstractions
 {
-    public class DataProvider<T> : IDataService<T> where T : class, new()
+    public abstract class DataProvider<T> : IDataService<T> where T : class, new()
     {
         IResponse<T> IDataService<T>.Delete(IParameters parameters)
         {

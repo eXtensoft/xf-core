@@ -10,6 +10,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\eXtensoft.XF.Core.Abstractions\eXtensoft.XF.Core.Abstractions.csproj" />
+    <ProjectReference Include="..\eXtensoft.XF.Data.Abstractions\eXtensoft.XF.Data.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions">
+      <HintPath>..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.logging.abstractions\2.0.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

@@ -7,9 +7,9 @@ namespace eXtensoft.XF.Data.Abstractions
 {
     public static class DataResponseExtensions
     {
-        public static void SetStatus<T>(this IResponse<T> response, bool isOkay, int httpCode = 200) where T : class, new()
+        public static void SetStatus<T>(this IResponse<T> response, bool isOkay, int httpCode = 200, string message = "Okay") where T : class, new()
         {
-            response.Status = new DataStatus() { HttpCode = httpCode };
+            response.Status = new DataStatus() { HttpCode = httpCode, Message = message };
             response.IsOkay = isOkay;
         }
 
@@ -22,10 +22,10 @@ namespace eXtensoft.XF.Data.Abstractions
 
         }
 
-        public static void SetStatus<T>(this IResponse<T> response, Exception ex, int httpCode = 200) where T : class, new()
+        public static void SetStatus<T>(this IResponse<T> response, Exception ex, int httpCode = 500, string message = "Internal Server Error") where T : class, new()
         {
-            string message = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
-            response.Status = new DataStatus() { HttpCode = httpCode, SystemMessage = message };
+            string systemMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+            response.Status = new DataStatus() { HttpCode = httpCode, SystemMessage = systemMessage, Message = message };
             response.IsOkay = false;
 
         }

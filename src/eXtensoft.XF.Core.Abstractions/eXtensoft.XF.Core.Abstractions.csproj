@@ -10,8 +10,4 @@
     <Compile Remove="abstractions\IMessageContext.cs" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="abstractions\api\" />
-  </ItemGroup>
-
 </Project>
