@@ -1,8 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using eXtensoft.XF.Core.Abstractions;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using System.Linq;
 
 namespace eXtensoft.XF.Core
 {
@@ -85,6 +87,44 @@ namespace eXtensoft.XF.Core
             }
 
             return content;
+        }
+
+
+
+        public static void Set<T>(this ApiRequest<T> request, T model,IParameters parameters) where T : class, new()
+        {
+            if (parameters != null)
+            {
+                request.Set(parameters);
+            }
+            if (model != null)
+            {
+                request.Set(model);
+            }
+        }
+        public static void Set<T>(this ApiRequest<T> request,IParameters parameters) where T : class, new()
+        {
+            if (parameters != null)
+            {
+                if (parameters.Count() == 1)
+                {
+
+                }
+                else
+                {
+                    int i = 0;
+                    foreach (var key in parameters)
+                    {
+                        //request.QueryString.Add(key, parameters[key]);
+                    }
+                }
+
+            }
+        }
+
+        public static void Set<T>(this ApiRequest<T> request, T model) where T : class, new()
+        {
+            request.Model = model;
         }
 
     }
