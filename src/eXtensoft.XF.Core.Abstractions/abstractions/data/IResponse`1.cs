@@ -19,5 +19,7 @@ namespace eXtensoft.XF.Core.Abstractions
 
         IPage Page { get; set; }
 
+        List<T> Items { get; set; }
+
     }
 }

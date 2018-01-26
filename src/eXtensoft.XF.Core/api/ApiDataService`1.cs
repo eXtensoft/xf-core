@@ -23,70 +23,75 @@ namespace eXtensoft.XF.Core
         public IExecutionContext<HttpResponseMessage> ExecutionContext { get; set; }
 
         IResponse<T> IDataService<T>.Delete(IParameters parameters)
-        {
-            var response = CreateResponse();
-            var apiRequest = GenerateApiRequest<T>(HttpVerb.DELETE);
-            SetParameters(apiRequest, parameters);
+        {            
+            var apiRequest = GenerateApiRequest<T>(HttpVerb.DELETE).Set(parameters);
             ApiResponse<T> apiResponse = Execute<T>(apiRequest, ParseMany<T>);
-            SetResponse(apiResponse, response);
+            var response = CreateResponse();
+            SetResponseDelete(apiResponse, response);
             return response;
         }
 
         Task<IResponse<T>> IDataService<T>.DeleteAsync(IParameters parameters)
         {
-            throw new NotImplementedException();
+            var apiRequest = GenerateApiRequest<T>(HttpVerb.DELETE).Set(parameters);
+            ApiResponse<T> apiResponse = ExecuteAsync<T>(apiRequest, ParseMany<T>).Result;
+            var response = CreateResponse();
+            SetResponseDelete(apiResponse, response);
+            return new Task<IResponse<T>>(()=>response);
         }
 
         IResponse<T> IDataService<T>.Get(IParameters parameters)
-        {
-            var response = CreateResponse();
-            var apiRequest = GenerateApiRequest<T>(HttpVerb.GET);
-            SetParameters(apiRequest, parameters);
+        {           
+            var apiRequest = GenerateApiRequest<T>(HttpVerb.GET).Set(parameters);
             ApiResponse<T> apiResponse = Execute<T>(apiRequest, ParseMany<T>);
-            SetResponse(apiResponse, response);
+            var response = CreateResponse();
+            SetResponseGet(apiResponse, response);
             return response;
         }
 
         Task<IResponse<T>> IDataService<T>.GetAsync(IParameters parameters)
         {
-            var response = CreateResponse();
-            var apiRequest = GenerateApiRequest<T>(HttpVerb.GET);
-            apiRequest.Set(parameters);
+            var apiRequest = GenerateApiRequest<T>(HttpVerb.GET).Set(parameters);
             ApiResponse<T> apiResponse = ExecuteAsync<T>(apiRequest, ParseMany<T>).Result;
-
-
-            throw new NotImplementedException();
-            //return new Task<IResponse<T>>(CreateResponse);
+            IResponse<T> response = CreateResponse();
+            SetResponseGet(apiResponse, response);
+            return new Task<IResponse<T>>(()=>response);
         }
 
         IResponse<T> IDataService<T>.Post(T model)
         {
-            var response = CreateResponse();
-            var apiRequest = GenerateApiRequest<T>(HttpVerb.POST);
-            apiRequest.Set(model);
+            var apiRequest = GenerateApiRequest<T>(HttpVerb.POST).Set(model);
             ApiResponse<T> apiResponse = Execute<T>(apiRequest,ParseOne<T>);
+            var response = CreateResponse();
             SetResponsePost(apiResponse, response);
             return response;
         }
 
         Task<IResponse<T>> IDataService<T>.PostAsync(T model)
         {
-            throw new NotImplementedException();
+            var apiRequest = GenerateApiRequest<T>(HttpVerb.POST).Set(model);
+            ApiResponse<T> apiResponse = ExecuteAsync<T>(apiRequest, ParseMany<T>).Result;
+            IResponse<T> response = CreateResponse();
+            SetResponsePost(apiResponse, response);
+            return new Task<IResponse<T>>(() => response);
         }
 
         IResponse<T> IDataService<T>.Put(T model, IParameters parameters)
         {
-            var response = CreateResponse();
-            var apiRequest = GenerateApiRequest<T>(HttpVerb.PUT);
-            apiRequest.Set(model,parameters);
+            var apiRequest = GenerateApiRequest<T>(HttpVerb.PUT).Set(model,parameters);
             ApiResponse<T> apiResponse = Execute<T>(apiRequest, ParseOne<T>);
-            SetResponsePost(apiResponse, response);
+            var response = CreateResponse();
+            SetResponsePut(apiResponse,response);
             return response;
         }
 
         Task<IResponse<T>> IDataService<T>.PutAsync(T model, IParameters parameters)
         {
-            throw new NotImplementedException();
+            var apiRequest = GenerateApiRequest<T>(HttpVerb.PUT).Set(parameters);
+            ApiResponse<T> apiResponse = ExecuteAsync<T>(apiRequest, ParseMany<T>).Result;
+            IResponse<T> response = CreateResponse();
+            SetResponsePut(apiResponse, response);
+            return new Task<IResponse<T>>(() => response);
         }
 
 
@@ -101,10 +106,10 @@ namespace eXtensoft.XF.Core
             return request;
         }
 
-        protected virtual void SetParameters(ApiRequest<T> request,IParameters parameters)
-        {
-            request.Set(parameters);
-        }
+        //protected virtual void SetParameters(ApiRequest<T> request,IParameters parameters)
+        //{
+        //    request.Set(parameters);
+        //}
 
 
         protected virtual void InitializeRequest<T>(ApiRequest<T> request) where T : class, new()
@@ -135,7 +140,7 @@ namespace eXtensoft.XF.Core
             return list;
         }
 
-        protected virtual DataResponse<T> CreateResponse()
+        protected virtual IResponse<T> CreateResponse()
         {
             if (ResponseFactory != null)
             {
@@ -149,22 +154,22 @@ namespace eXtensoft.XF.Core
 
         }
 
-        protected virtual void SetResponseDelete(ApiResponse<T> apiResponse, DataResponse<T> dataResponse)
+        protected virtual void SetResponseDelete(ApiResponse<T> apiResponse, IResponse<T> dataResponse)
         {
             SetResponse(apiResponse, dataResponse);
         }
 
-        protected virtual void SetResponseGet(ApiResponse<T> apiResponse, DataResponse<T> dataResponse)
+        protected virtual void SetResponseGet(ApiResponse<T> apiResponse, IResponse<T> dataResponse)
         {
             SetResponse(apiResponse, dataResponse);
         }
 
-        protected virtual void SetResponsePost(ApiResponse<T> apiResponse, DataResponse<T> dataResponse)
+        protected virtual void SetResponsePost(ApiResponse<T> apiResponse, IResponse<T> dataResponse)
         {
             SetResponse(apiResponse, dataResponse);
         }
 
-        protected virtual void SetResponsePut(ApiResponse<T> apiResponse, DataResponse<T> dataResponse)
+        protected virtual void SetResponsePut(ApiResponse<T> apiResponse, IResponse<T> dataResponse)
         {
             SetResponse(apiResponse, dataResponse);
         }
@@ -201,7 +206,7 @@ namespace eXtensoft.XF.Core
                 catch (Exception ex)
                 {
                     response.Message = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
-                    response.StatusCode = System.Net.HttpStatusCode.InternalServerError;
+                    response.StatusCode = System.Net.HttpStatusCode.ServiceUnavailable;
                 }
                 if (message == null)
                 {
@@ -232,6 +237,10 @@ namespace eXtensoft.XF.Core
                         }
 
                     }
+                    else
+                    {
+
+                    }
                 }
             }
             return response;
@@ -251,10 +260,8 @@ namespace eXtensoft.XF.Core
                             message = HttpClient.DeleteAsync(request.ComposeUrl()).Result;
                             break;
                         case HttpVerb.GET:
-                        message = client.GetAsync(request.ComposeUrl(), HttpCompletionOption.ResponseContentRead).Result;
-                        //message = ExecutionContext.Execute(ctx => HttpClient.GetAsync(request.ComposeUrl()));
-
-                        break;
+                            message = client.GetAsync(request.ComposeUrl(), HttpCompletionOption.ResponseContentRead).Result;
+                            break;
                         case HttpVerb.POST:
                             message = HttpClient.PostAsync(request.ComposeUrl(), request.Content()).Result;
                             break;
@@ -303,8 +310,11 @@ namespace eXtensoft.XF.Core
                     }
 
                 }
+                else
+                {
+
+                }
             }
-            //}
             return response;
         }
 
@@ -321,7 +331,7 @@ namespace eXtensoft.XF.Core
             return list;
         }
 
-        private static void SetResponse(ApiResponse<T> apiResponse, DataResponse<T> dataResponse)
+        private static void SetResponse(ApiResponse<T> apiResponse, IResponse<T> dataResponse)
         {
             if (apiResponse.IsOkay)
             {
