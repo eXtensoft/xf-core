@@ -4,7 +4,7 @@ using System.Text;
 
 namespace eXtensoft.XF.Core.Abstractions
 {
-    public interface IParameters : IEnumerable<string>
+    public interface IParameters : IEnumerable<IParameter>
     {
         void Add(string key, object parameterValue);
 

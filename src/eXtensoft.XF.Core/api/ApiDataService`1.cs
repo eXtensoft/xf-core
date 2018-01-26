@@ -18,6 +18,9 @@ namespace eXtensoft.XF.Core
 
         public IResponseFactory ResponseFactory { get; set; }
 
+        public HttpClient HttpClient { get; set; }
+
+        public IExecutionContext<HttpResponseMessage> ExecutionContext { get; set; }
 
         IResponse<T> IDataService<T>.Delete(IParameters parameters)
         {
@@ -106,13 +109,14 @@ namespace eXtensoft.XF.Core
 
         protected virtual void InitializeRequest<T>(ApiRequest<T> request) where T : class, new()
         {
-            //request.Protocol = ApiConstants.ApiProtocol;
-            //request.RootUrl = ApiConstants.Url.Root;
-            request.Url = ResolveUrl<T>();
+            request.Protocol = Protocol.Http;
+            request.RootUrl = "http://localhost:51376/api";
+            //request.Url = ResolveUrl<T>(request.HttpVerb);
             request.AddHeaders(AddDefaultHeaders);
         }
 
-        protected virtual string ResolveUrl<T>()
+
+        protected virtual string ResolveUrl<T>(HttpVerb httpVerb)
         {
             string url = String.Empty;
             T t = Activator.CreateInstance<T>();
@@ -233,28 +237,29 @@ namespace eXtensoft.XF.Core
             return response;
         }
 
-        public static ApiResponse<T> Execute<T>(ApiRequest<T> request, Func<string, IEnumerable<T>> parseJson) where T : class, new()
+        public ApiResponse<T> Execute<T>(ApiRequest<T> request, Func<string, IEnumerable<T>> parseJson) where T : class, new()
         {
             ApiResponse<T> response = new ApiResponse<T>() { Request = request, Items = new List<T>() };
+            HttpResponseMessage message = null;
             using (var client = request.HttpClient())
             {
-
-                HttpResponseMessage message = null;
                 try
                 {
                     switch (request.HttpVerb)
                     {
                         case HttpVerb.DELETE:
-                            message = client.DeleteAsync(request.ComposeUrl()).Result;
+                            message = HttpClient.DeleteAsync(request.ComposeUrl()).Result;
                             break;
                         case HttpVerb.GET:
-                            message = client.GetAsync(request.ComposeUrl(), HttpCompletionOption.ResponseContentRead).Result;
-                            break;
+                        message = client.GetAsync(request.ComposeUrl(), HttpCompletionOption.ResponseContentRead).Result;
+                        //message = ExecutionContext.Execute(ctx => HttpClient.GetAsync(request.ComposeUrl()));
+
+                        break;
                         case HttpVerb.POST:
-                            message = client.PostAsync(request.ComposeUrl(), request.Content()).Result;
+                            message = HttpClient.PostAsync(request.ComposeUrl(), request.Content()).Result;
                             break;
                         case HttpVerb.PUT:
-                            message = client.PutAsync(request.ComposeUrl(), request.Content()).Result;
+                            message = HttpClient.PutAsync(request.ComposeUrl(), request.Content()).Result;
                             break;
                         default:
                             break;
@@ -266,37 +271,40 @@ namespace eXtensoft.XF.Core
                     response.Message = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
                     response.StatusCode = System.Net.HttpStatusCode.InternalServerError;
                 }
-                if (message == null)
+            }
+                
+
+            if (message == null)
+            {
+            }
+            else
+            {
+                response.StatusCode = response.StatusCode;
+                if (message.IsSuccessStatusCode)
                 {
-                }
-                else
-                {
-                    response.StatusCode = response.StatusCode;
-                    if (message.IsSuccessStatusCode)
+                    response.IsOkay = true;
+                    var task = message.Content.ReadAsStringAsync();
+                    if (task != null)
                     {
-                        response.IsOkay = true;
-                        var task = message.Content.ReadAsStringAsync();
-                        if (task != null)
+                        string body = task.Result;
+                        if (!String.IsNullOrWhiteSpace(body))
                         {
-                            string body = task.Result;
-                            if (!String.IsNullOrWhiteSpace(body))
+                            response.Body = body;
+                            try
                             {
-                                response.Body = body;
-                                try
-                                {
-                                    response.Items = parseJson(body).ToList();
-                                }
-                                catch (Exception ex)
-                                {
-                                    response.Message = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
-                                }
-
+                                response.Items = parseJson(body).ToList();
                             }
-                        }
+                            catch (Exception ex)
+                            {
+                                response.Message = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                            }
 
+                        }
                     }
+
                 }
             }
+            //}
             return response;
         }
 
