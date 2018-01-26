@@ -41,16 +41,18 @@ namespace eXtensoft.XF.Core
             client.BaseAddress = new Uri(String.Format("{0}://{1}", request.Protocol.ToString(), request.RootUrl));
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-            foreach (Tuple<string,string> header in request.Headers)
+            foreach (Tuple<string, string> header in request.Headers)
             {
                 if (hs.Add(header.Item1))
                 {
                     client.DefaultRequestHeaders.Add(header.Item1, header.Item2);
                 }
-                
+
             }
             return client;
         }
+
+
 
         public static string ComposeUrl<T>(this ApiRequest<T> request) where T : class, new()
         {
@@ -106,19 +108,15 @@ namespace eXtensoft.XF.Core
         {
             if (parameters != null)
             {
-                if (parameters.Count() == 1)
+                int i = parameters.Count();
+                if (i == 1)
                 {
-
+                    request.RouteParameter = parameters.First().Value;
                 }
-                else
+                else if(i > 1)
                 {
-                    int i = 0;
-                    foreach (var key in parameters)
-                    {
-                        //request.QueryString.Add(key, parameters[key]);
-                    }
+                    request.QueryString = parameters.GetDictionary();
                 }
-
             }
         }
 
@@ -126,6 +124,18 @@ namespace eXtensoft.XF.Core
         {
             request.Model = model;
         }
+
+        public static Dictionary<string,object> GetDictionary(this IParameters parameters)
+        {
+            Dictionary<string, object> d = new Dictionary<string, object>();
+            foreach (var parameter in parameters)
+            {
+                d.Add(parameter.Key, parameter.Value);
+            }
+
+            return d;
+        }
+
 
     }
 }
