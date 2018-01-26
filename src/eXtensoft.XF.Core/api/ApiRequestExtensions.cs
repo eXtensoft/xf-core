@@ -93,7 +93,7 @@ namespace eXtensoft.XF.Core
 
 
 
-        public static void Set<T>(this ApiRequest<T> request, T model,IParameters parameters) where T : class, new()
+        public static ApiRequest<T> Set<T>(this ApiRequest<T> request, T model,IParameters parameters) where T : class, new()
         {
             if (parameters != null)
             {
@@ -103,8 +103,25 @@ namespace eXtensoft.XF.Core
             {
                 request.Set(model);
             }
+            return request;
         }
-        public static void Set<T>(this ApiRequest<T> request,IParameters parameters) where T : class, new()
+        //public static void Set<T>(this ApiRequest<T> request,IParameters parameters) where T : class, new()
+        //{
+        //    if (parameters != null)
+        //    {
+        //        int i = parameters.Count();
+        //        if (i == 1)
+        //        {
+        //            request.RouteParameter = parameters.First().Value;
+        //        }
+        //        else if(i > 1)
+        //        {
+        //            request.QueryString = parameters.GetDictionary();
+        //        }
+        //    }
+        //}
+
+        public static ApiRequest<T> Set<T>(this ApiRequest<T> request, IParameters parameters) where T : class, new()
         {
             if (parameters != null)
             {
@@ -113,17 +130,20 @@ namespace eXtensoft.XF.Core
                 {
                     request.RouteParameter = parameters.First().Value;
                 }
-                else if(i > 1)
+                else if (i > 1)
                 {
                     request.QueryString = parameters.GetDictionary();
                 }
             }
+            return request;
         }
 
-        public static void Set<T>(this ApiRequest<T> request, T model) where T : class, new()
+        public static ApiRequest<T> Set<T>(this ApiRequest<T> request, T model) where T : class, new()
         {
             request.Model = model;
+            return request;
         }
+
 
         public static Dictionary<string,object> GetDictionary(this IParameters parameters)
         {
