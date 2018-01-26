@@ -7,9 +7,9 @@ namespace eXtensoft.XF.Core
 {
     public class Parameter : IParameter
     {
-        string IParameter.Key { get; set; }
+        public string Key { get; set; }
 
-        object IParameter.Value { get; set; }
+        public object Value { get; set; }
 
 
     }

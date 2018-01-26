@@ -8,44 +8,135 @@ namespace eXtensoft.XF.Core
 {
     public class Parameters : IParameters
     {
-        void IParameters.Add(string key, object parameterValue)
+        private const string StrategyKey = "919C4AC2";
+
+        private ParameterCollection _Parameters = new ParameterCollection();
+
+        #region ctor
+
+        public Parameters(string key, object paramValue)
         {
-            throw new NotImplementedException();
+            AddParam(key, paramValue);
         }
 
-        bool IParameters.ContainsKey(string key)
+        public Parameters(string key, string paramValue)
         {
-            throw new NotImplementedException();
+            AddParam(key, paramValue);
+        }
+        public Parameters(string key, int paramValue)
+        {
+            AddParam(key, paramValue);
+        }
+        public Parameters(string key, decimal paramValue)
+        {
+            AddParam(key, paramValue);
+        }
+        public Parameters(string key, DateTime paramValue)
+        {
+            AddParam(key, paramValue);
+        }
+        public Parameters()
+        {
+
         }
 
-        IEnumerator<IParameter> IEnumerable<IParameter>.GetEnumerator()
+        #endregion
+
+
+
+        public void Add(string key, object parameterValue)
         {
-            throw new NotImplementedException();
+            AddParam(key, parameterValue);
         }
 
+        #region Add overrides
+        public void Add(string key, string value)
+        {
+            _Parameters.Add(new Parameter() { Key = key, Value = value });
+        }
+        public void Add(string key, int value)
+        {
+            _Parameters.Add(new Parameter() { Key = key, Value = value });
+        }
+        public void Add(string key, decimal value)
+        {
+            _Parameters.Add(new Parameter() { Key = key, Value = value });
+        }
+        public void Add(string key, DateTime value)
+        {
+            _Parameters.Add(new Parameter() { Key = key, Value = value });
+        }
+
+        #endregion
+
+        public bool ContainsKey(string key)
+        {
+            if (String.IsNullOrWhiteSpace(key))
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
+            return _Parameters.Contains(key);
+        }
+
+        public IEnumerator<IParameter> GetEnumerator()
+        {
+            return ((IEnumerable<Parameter>)_Parameters).GetEnumerator();
+        }
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return ((IEnumerable<Parameter>)_Parameters).GetEnumerator();
         }
 
-        string IParameters.GetStrategyKey()
+        public string GetStrategyKey()
         {
-            throw new NotImplementedException();
+            string s = String.Empty;
+            if (HasStrategy())
+            {
+                s = (string)_Parameters[StrategyKey].Value;
+            }
+            return s;
         }
 
-        T IParameters.GetValue<T>(string key)
+        public T GetValue<T>(string key)
         {
-            throw new NotImplementedException();
+            T t = default(T);
+            if (_Parameters.Contains(key))
+            {
+                Parameter p = _Parameters[key];
+                if (p.Value is T)
+                {
+                    t = (T)p.Value;
+                }
+            }
+            return t;
         }
 
-        bool IParameters.HasStrategy()
+        public bool HasStrategy()
         {
-            throw new NotImplementedException();
+            return _Parameters.Contains(StrategyKey);
         }
 
-        bool IParameters.TryGetValue<T>(string key, out T t)
+        public bool TryGetValue<T>(string key, out T t)
         {
-            throw new NotImplementedException();
+            bool b = false;
+            t = default(T);
+            if (_Parameters.Contains(key) && _Parameters[key].Value is T)
+            {
+                t = (T)_Parameters[key].Value;
+                b = true;
+            }
+            return b;
         }
+
+        private void AddParam(string key, object paramValue)
+        {
+            if (!_Parameters.Contains(key))
+            {
+                _Parameters.Add(new Parameter() { Key = key, Value = paramValue });
+            }
+        }
+
+
+
     }
 }
