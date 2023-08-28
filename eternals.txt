@@ -1,0 +1,94 @@
+
+Scope: In,Out
+	Iron triangle
+	Scope Instability leads to:
+		Architectural/Design challenges
+		Reprioritization of Product Backlog
+		Stretching the Iron Triangle
+	Estimate/Cost misalignment
+
+
+
+Inception
+	Business Concerns
+		Business Case
+			Value Proposition
+			Scope (in/out)
+			Cost (sizing estimates)
+		Requirements
+			Functional
+				Personas/User Stories/Use Cases, Workflows
+			Non-functional
+				SLA, Performance (load, transaction velocity)
+	Project Concerns
+		High Level Estimates
+	
+	Technical
+		Operating Context, Adjacent System dependencies
+		high-level architectural diagram, context diagram
+	
+	Stakeholders
+
+Elaboration
+	Business Concerns
+		Prioritized Product Backlog
+		High Level User Stories & Use Cases defined	
+	Project Concerns
+		High level estimates stability	
+	Technical Concerns
+		Architectural Risk Mitigation, Stability
+		Design alignment with Domain E/R, SLA, non-functional requirements		
+	Feasibility
+		technical, operational		
+	Construction Concerns
+		Personel, environment, Sprint Planning 
+	
+	Deployment & Configuration Management
+
+Construction
+	
+----------
+
+	Business
+	Value Proposition
+		Function
+			User Stories/Use Cases
+			Business Criticality
+			Product Backlog
+		Performance
+			SLA
+			Usage Profile
+				Users, Usage, Peak/Valley
+	Project
+		Stakeholders
+		Estimates
+		Scope(In/Out)
+
+		
+	Project
+		Funding
+		Estimates
+		Signoffs
+		Stakeholders
+		Risk Management
+
+	Business	
+		Domain E/R Analysis, Expected Business Growth
+		User Stories / Use Cases, Personas, Workflows
+		Prioritized Backlog
+
+	Technical Alignment (buisness value)
+		Mandates,Compliance,Governance
+		Adjacent Systems, dependencies
+		Architecture/Design
+		
+	Construction
+		Team composition,Personel, environments, 
+		sprints, milestones, deliverables
+		Delivery & Config Mgt
+		Quality & User Acceptance 
+
+
+
+
+		
